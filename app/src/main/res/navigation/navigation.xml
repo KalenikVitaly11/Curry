@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/searchRecipeFragment">
+
+    <fragment
+        android:id="@+id/makeDietFragment"
+        android:name="com.styleru.curry.presentation.view.makeDiet.MakeDietFragment"
+        android:label="fragment_make_diet"
+        tools:layout="@layout/fragment_make_diet" />
+    <fragment
+        android:id="@+id/searchProductFragment"
+        android:name="com.styleru.curry.presentation.view.searchProduct.SearchProductFragment"
+        android:label="fragment_search_product"
+        tools:layout="@layout/fragment_search_product" />
+    <fragment
+        android:id="@+id/searchRecipeFragment"
+        android:name="com.styleru.curry.presentation.view.searchRecipe.SearchRecipeFragment"
+        android:label="fragment_search_recipe"
+        tools:layout="@layout/fragment_search_recipe" />
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="com.styleru.curry.presentation.view.bookmarks.BookmarksFragment"
+        android:label="fragment_bookmarks"
+        tools:layout="@layout/fragment_bookmarks" />
+</navigation>

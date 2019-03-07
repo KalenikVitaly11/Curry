@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Curry</string>
+
+    <string name="search_recipe">Поиск рецептов</string>
+    <string name="search_product">Поиск продуктов</string>
+    <string name="make_a_diet">Составить план питания</string>
+    <string name="bookmarks">Избранное</string>
+</resources>

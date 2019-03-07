@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Curry</string>
+
+    <string name="search_recipe">Search recipe</string>
+    <string name="search_product">Search product</string>
+    <string name="make_a_diet">Make a diet</string>
+    <string name="bookmarks">Bookmarks</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
