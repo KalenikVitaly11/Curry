@@ -2,8 +2,11 @@
 <resources>
     <string name="app_name">Curry</string>
 
-    <string name="search_recipe">Поиск рецептов</string>
+    <string name="search_recipe">Найти рецепт</string>
     <string name="search_product">Поиск продуктов</string>
-    <string name="make_a_diet">Составить план питания</string>
+    <string name="make_a_diet">Составить диету</string>
     <string name="bookmarks">Избранное</string>
+
+    <string name="recipes">Рецепты</string>
+    <string name="error">Что-то пошло не так</string>
 </resources>

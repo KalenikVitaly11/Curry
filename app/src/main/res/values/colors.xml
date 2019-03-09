@@ -8,5 +8,7 @@
     <color name="bottom_nav_pressed">#8e6601</color>
     <color name="bottom_nav_unchecked">#8e6601</color>
 
+    <color name="background">#fffaf2</color>
+
     <color name="white">#ffffff</color>
 </resources>

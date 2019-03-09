@@ -5,10 +5,6 @@
         android:title="@string/search_recipe"
         android:icon="@drawable/ic_restaurant_black_24dp" />
     <item
-        android:id="@+id/searchProductFragment"
-        android:title="@string/search_product"
-        android:icon="@drawable/ic_outline_local_grocery_store_24px"/>
-    <item
         android:id="@+id/makeDietFragment"
         android:title="@string/make_a_diet"
         android:icon="@drawable/ic_outline_assignment_24px"/>

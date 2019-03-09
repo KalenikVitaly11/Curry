@@ -2,12 +2,15 @@ package com.styleru.curry.presentation.view.recipe;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.styleru.curry.R;
+import com.styleru.curry.presentation.view.searchRecipe.SearchRecipeFragment;
 
 public class RecipeFragment extends Fragment {
 
@@ -18,4 +21,9 @@ public class RecipeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_recipe, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        int id = getArguments().getInt(SearchRecipeFragment.ID_KEY);
+    }
 }
