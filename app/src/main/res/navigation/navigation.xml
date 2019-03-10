@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/searchRecipeFragment">
+    app:startDestination="@id/cuisineFragment">
 
     <fragment
         android:id="@+id/makeDietFragment"
@@ -11,12 +11,15 @@
         android:label="fragment_make_diet"
         tools:layout="@layout/fragment_make_diet" />
     <fragment
-        android:id="@+id/searchRecipeFragment"
-        android:name="com.styleru.curry.presentation.view.searchRecipe.SearchRecipeFragment"
+        android:id="@+id/cuisineFragment"
+        android:name="com.styleru.curry.presentation.view.cuisine.CuisineFragment"
         android:label="fragment_search_recipe"
         tools:layout="@layout/fragment_search_recipe" >
         <action
-            android:id="@+id/action_searchRecipeFragment_to_recipeFragment"
+            android:id="@+id/action_cuisineFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_cuisineFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
     </fragment>
     <fragment
@@ -33,4 +36,9 @@
             android:name="recipeId"
             android:defaultValue="667163" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.styleru.curry.presentation.view.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

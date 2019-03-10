@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.styleru.curry.R;
 
+import java.io.IOException;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;

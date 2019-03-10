@@ -9,4 +9,24 @@
 
     <string name="recipes">Рецепты</string>
     <string name="error">Что-то пошло не так</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="what_to_cook">Что бы приготовить...</string>
+
+    <string name="vegan">Веганская</string>
+    <string name="vegetarian">Вегетарианская</string>
+    <string name="african">Африканская</string>
+    <string name="chinese">Китайская</string>
+    <string name="japanese">Японская</string>
+    <string name="korean">Корейская</string>
+    <string name="indian">Индийская</string>
+    <string name="british">Английская</string>
+    <string name="french">Французская</string>
+    <string name="italian">Итальянская</string>
+    <string name="mexican">Мексиканская</string>
+    <string name="spanish">Испанская</string>
+    <string name="jewish">Еврейская</string>
+    <string name="american">Американская</string>
+    <string name="greek">Греческая</string>
+    <string name="german">Немецкая</string>
 </resources>

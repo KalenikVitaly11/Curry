@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.styleru.curry.R;
-import com.styleru.curry.presentation.view.searchRecipe.SearchRecipeFragment;
+import com.styleru.curry.presentation.view.cuisine.CuisineFragment;
 
 public class RecipeFragment extends Fragment {
 
@@ -24,6 +24,6 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int id = getArguments().getInt(SearchRecipeFragment.ID_KEY);
+        int id = getArguments().getInt(CuisineFragment.ID_KEY);
     }
 }

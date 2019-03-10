@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".presentation.view.search.SearchFragment">
+
+    <EditText
+        android:id="@+id/search_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_padding"
+        android:layout_marginTop="@dimen/default_padding"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:hint="@string/what_to_cook"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="@dimen/search_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.chip.ChipGroup
+        android:id="@+id/diet_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_padding"
+        android:layout_marginTop="@dimen/chip_group_margin_top"
+        android:layout_marginEnd="@dimen/default_padding"
+        app:chipSpacing="@dimen/chip_spacing"
+        app:layout_constraintTop_toBottomOf="@id/search_edittext"
+        app:singleSelection="true">
+
+        <android.support.design.chip.Chip
+            style="@style/MyChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vegetarian" />
+
+        <android.support.design.chip.Chip
+            style="@style/MyChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vegan" />
+    </android.support.design.chip.ChipGroup>
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/diet_chip_group" >
+
+        <android.support.design.chip.ChipGroup
+            android:id="@+id/cuisine_chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginTop="@dimen/chip_group_margin_top"
+            android:layout_marginEnd="@dimen/default_padding"
+            app:chipSpacing="@dimen/chip_spacing"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/american" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chinese" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/japanese" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/korean" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/indian" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/british" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/french" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/italian" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/greek" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spanish" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/german" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jewish" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/african" />
+
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mexican" />
+
+            <!--Да, это костыль, но по-другому работать не хотело. Почему то кусок последней чипсы обрезается. А так обрезается кусок невидимой чипсы-->
+            <android.support.design.chip.Chip
+                style="@style/MyChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+
+
+        </android.support.design.chip.ChipGroup>
+    </HorizontalScrollView>
+
+</android.support.constraint.ConstraintLayout>

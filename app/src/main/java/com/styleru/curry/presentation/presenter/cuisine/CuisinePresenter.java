@@ -1,27 +1,27 @@
-package com.styleru.curry.presentation.presenter.searchRecipe;
+package com.styleru.curry.presentation.presenter.cuisine;
 
 
 import android.annotation.SuppressLint;
 
 import com.styleru.curry.domain.cuisine.CuisineRecipesInteractor;
-import com.styleru.curry.presentation.view.searchRecipe.SearchRecipeView;
+import com.styleru.curry.presentation.view.cuisine.CuisineView;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class SearhRecipePresenter {
+public class CuisinePresenter {
 
     private CuisineRecipesInteractor cuisineRecipesInteractor;
-    private SearchRecipeView view;
+    private CuisineView view;
 
     @Inject
-    public SearhRecipePresenter(CuisineRecipesInteractor cuisineRecipesInteractor) {
+    public CuisinePresenter(CuisineRecipesInteractor cuisineRecipesInteractor) {
         this.cuisineRecipesInteractor = cuisineRecipesInteractor;
     }
 
-    public void attachView(SearchRecipeView view){
+    public void attachView(CuisineView view){
         this.view = view;
     }
 

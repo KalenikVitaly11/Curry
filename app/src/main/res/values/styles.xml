@@ -13,4 +13,9 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="MyChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="chipBackgroundColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

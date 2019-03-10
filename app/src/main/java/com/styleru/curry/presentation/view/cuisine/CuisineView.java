@@ -1,8 +1,8 @@
-package com.styleru.curry.presentation.view.searchRecipe;
+package com.styleru.curry.presentation.view.cuisine;
 
 import com.styleru.curry.domain.cuisine.models.CuisineRecipes;
 
-public interface SearchRecipeView {
+public interface CuisineView {
 
     void setData(CuisineRecipes cuisineRecipes);
 

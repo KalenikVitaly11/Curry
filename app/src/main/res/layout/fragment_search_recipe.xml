@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".presentation.view.searchRecipe.SearchRecipeFragment">
+    tools:context=".presentation.view.cuisine.CuisineFragment">
 
     <TextView
         android:id="@+id/search_recipe_title"
@@ -20,10 +20,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/search"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="@dimen/default_padding"
-        android:background="@android:color/transparent"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_search_black_24dp"
         app:layout_constraintBottom_toBottomOf="@id/search_recipe_title"
         app:layout_constraintEnd_toEndOf="parent"

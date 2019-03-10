@@ -1,4 +1,4 @@
-package com.styleru.curry.presentation.view.searchRecipe.adapter;
+package com.styleru.curry.presentation.view.cuisine.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

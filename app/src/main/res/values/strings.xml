@@ -8,4 +8,25 @@
 
     <string name="recipes">Recipes</string>
     <string name="error">Something went wrong</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="what_to_cook">What to cook?</string>
+
+    <string name="vegan">Vegan</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="african">African</string>
+    <string name="chinese">Chinese</string>
+    <string name="japanese">Japanese</string>
+    <string name="korean">Korean</string>
+    <string name="indian">Indian</string>
+    <string name="british">British</string>
+    <string name="french">French</string>
+    <string name="italian">Italian</string>
+    <string name="mexican">Mexican</string>
+    <string name="spanish">Spanish</string>
+    <string name="jewish">Jewish</string>
+    <string name="american">American</string>
+    <string name="greek">Greek</string>
+    <string name="german">German</string>
 </resources>
