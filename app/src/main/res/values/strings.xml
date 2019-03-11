@@ -29,4 +29,7 @@
     <string name="american">American</string>
     <string name="greek">Greek</string>
     <string name="german">German</string>
+
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
 </resources>

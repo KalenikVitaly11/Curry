@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/recipe_image"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="@dimen/recipe_item_image_size"
+            android:layout_height="@dimen/recipe_item_image_size"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
-            android:maxWidth="112dp"
+            android:maxWidth="96dp"
             android:maxLines="2"
             android:lines="2"
             android:textSize="14sp"

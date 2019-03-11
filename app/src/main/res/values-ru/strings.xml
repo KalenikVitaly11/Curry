@@ -29,4 +29,7 @@
     <string name="american">Американская</string>
     <string name="greek">Греческая</string>
     <string name="german">Немецкая</string>
+
+    <string name="ingredients">Ингридиенты</string>
+    <string name="instructions">Инструкция</string>
 </resources>

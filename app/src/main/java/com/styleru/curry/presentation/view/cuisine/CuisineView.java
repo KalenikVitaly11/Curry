@@ -4,7 +4,9 @@ import com.styleru.curry.domain.cuisine.models.CuisineRecipes;
 
 public interface CuisineView {
 
-    void setData(CuisineRecipes cuisineRecipes);
+    void setDataOne(CuisineRecipes cuisineRecipes);
+    void setDataTwo(CuisineRecipes cuisineRecipes);
+    void setDataThree(CuisineRecipes cuisineRecipes);
 
     void showError();
 }

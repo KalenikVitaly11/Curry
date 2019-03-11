@@ -33,10 +33,14 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     private RecyclerView cuisineRecyclerViewOne;
     private RecyclerView cuisineRecyclerViewTwo;
     private RecyclerView cuisineRecyclerViewThree;
-    private CuisineRecyclerViewAdapter adapter;
+    private CuisineRecyclerViewAdapter adapterOne;
+    private CuisineRecyclerViewAdapter adapterTwo;
+    private CuisineRecyclerViewAdapter adapterThree;
 
     private ImageButton search;
-    private TextView firstCuisineTitle;
+    private TextView cuisineTitleOne;
+    private TextView cuisineTitleTwo;
+    private TextView cuisineTitleThree;
 
     @Inject
     protected CuisinePresenter presenter;
@@ -56,22 +60,32 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
 
     private void initViews(View view) {
         cuisineRecyclerViewOne = view.findViewById(R.id.cuisine_recipes_one);
-//        cuisineRecyclerViewTwo = view.findViewById(R.id.cuisine_recipes_two);
-//        cuisineRecyclerViewThree = view.findViewById(R.id.cuisine_recipes_three);
-        firstCuisineTitle = view.findViewById(R.id.search_recipe_first_title);
+        cuisineRecyclerViewTwo = view.findViewById(R.id.cuisine_recipes_two);
+        cuisineRecyclerViewThree = view.findViewById(R.id.cuisine_recipes_three);
+        cuisineTitleOne = view.findViewById(R.id.search_recipe_first_title);
+        cuisineTitleTwo = view.findViewById(R.id.search_recipe_second_title);
+        cuisineTitleThree = view.findViewById(R.id.search_recipe_third_title);
         search = view.findViewById(R.id.search);
     }
 
     private void init() {
         // Проводим инъекцию
-        CurryApplication.getCuisineComponent()
-                .inject(this);
+        CurryApplication.getCuisineComponent().inject(this);
 
-        adapter = new CuisineRecyclerViewAdapter(this);
-        cuisineRecyclerViewOne.setAdapter(adapter);
+        adapterOne = new CuisineRecyclerViewAdapter(this);
+        cuisineRecyclerViewOne.setAdapter(adapterOne);
+
+        adapterTwo = new CuisineRecyclerViewAdapter(this);
+        cuisineRecyclerViewTwo.setAdapter(adapterTwo);
+
+        adapterThree = new CuisineRecyclerViewAdapter(this);
+        cuisineRecyclerViewThree.setAdapter(adapterThree);
+
         presenter.attachView(this);
 
-        presenter.getCuisineRecipes();
+        presenter.getCuisineRecipesOne();
+        presenter.getCuisineRecipesTwo();
+        presenter.getCuisineRecipesThree();
     }
 
     private void initOnClicks(){
@@ -98,9 +112,20 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
      * @param cuisineRecipes объект с рецептами, получаемый с сервера
      */
     @Override
-    public void setData(CuisineRecipes cuisineRecipes) {
-        firstCuisineTitle.setText(cuisineRecipes.getCuisine());
-        adapter.updateData(cuisineRecipes.getShortRecipes());
+    public void setDataOne(CuisineRecipes cuisineRecipes) {
+        cuisineTitleOne.setText(cuisineRecipes.getCuisine());
+        adapterOne.updateData(cuisineRecipes.getShortRecipes());    }
+
+    @Override
+    public void setDataTwo(CuisineRecipes cuisineRecipes) {
+        cuisineTitleTwo.setText(cuisineRecipes.getCuisine());
+        adapterTwo.updateData(cuisineRecipes.getShortRecipes());
+    }
+
+    @Override
+    public void setDataThree(CuisineRecipes cuisineRecipes) {
+        cuisineTitleThree.setText(cuisineRecipes.getCuisine());
+        adapterThree.updateData(cuisineRecipes.getShortRecipes());
     }
 
     /**

@@ -8,7 +8,6 @@ public interface CuisineRecipesInteractor {
 
     /**
      * Метод для получения рецептов определенной кухни (используется на главном экране)
-     * @return Ответ с сервера, очевидно
      */
     Single<CuisineRecipes> getCuisineRecipes();
 }

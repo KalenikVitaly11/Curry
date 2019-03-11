@@ -26,10 +26,10 @@ public class CuisinePresenter {
     }
 
     /**
-     * Метод для получения рецептов определенной кухни (используется на главном экране)
+     * Метод для получения рецептов определенной кухни для первого списка (используется на главном экране)
      */
     @SuppressLint("CheckResult")
-    public void getCuisineRecipes() {
+    public void getCuisineRecipesOne() {
         cuisineRecipesInteractor.getCuisineRecipes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -39,7 +39,47 @@ public class CuisinePresenter {
                             String newCuisine = cuisineRecipes.getCuisine().substring(0,1).toUpperCase() + cuisineRecipes.getCuisine().substring(1) + " cuisine";
                             cuisineRecipes.setCuisine(newCuisine);
 
-                            view.setData(cuisineRecipes);
+                            view.setDataOne(cuisineRecipes);
+                        }, throwable -> {
+                            view.showError();
+                        });
+    }
+
+    /**
+     * Метод для получения рецептов определенной кухни для второго списка (используется на главном экране)
+     */
+    @SuppressLint("CheckResult")
+    public void getCuisineRecipesTwo() {
+        cuisineRecipesInteractor.getCuisineRecipes()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        cuisineRecipes -> {
+                            // Меняем первую букву на заглавную и добавляем слово "кухня"
+                            String newCuisine = cuisineRecipes.getCuisine().substring(0,1).toUpperCase() + cuisineRecipes.getCuisine().substring(1) + " cuisine";
+                            cuisineRecipes.setCuisine(newCuisine);
+
+                            view.setDataTwo(cuisineRecipes);
+                        }, throwable -> {
+                            view.showError();
+                        });
+    }
+
+    /**
+     * Метод для получения рецептов определенной кухни для третьего списка (используется на главном экране)
+     */
+    @SuppressLint("CheckResult")
+    public void getCuisineRecipesThree() {
+        cuisineRecipesInteractor.getCuisineRecipes()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        cuisineRecipes -> {
+                            // Меняем первую букву на заглавную и добавляем слово "кухня"
+                            String newCuisine = cuisineRecipes.getCuisine().substring(0,1).toUpperCase() + cuisineRecipes.getCuisine().substring(1) + " cuisine";
+                            cuisineRecipes.setCuisine(newCuisine);
+
+                            view.setDataThree(cuisineRecipes);
                         }, throwable -> {
                             view.showError();
                         });

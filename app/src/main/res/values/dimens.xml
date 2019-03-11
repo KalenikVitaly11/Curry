@@ -10,4 +10,7 @@
     <dimen name="chip_spacing">8dp</dimen>
     <dimen name="chip_group_margin_top">8dp</dimen>
     <dimen name="search_text_size">26sp</dimen>
+    <dimen name="tab_layout_height">56dp</dimen>
+    <dimen name="recipe_image_size">300dp</dimen>
+    <dimen name="recipe_item_image_size">112dp</dimen>
 </resources>

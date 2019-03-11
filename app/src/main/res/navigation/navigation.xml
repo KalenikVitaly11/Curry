@@ -28,17 +28,12 @@
         android:label="fragment_bookmarks"
         tools:layout="@layout/fragment_bookmarks" />
     <fragment
-        android:id="@+id/recipeFragment"
-        android:name="com.styleru.curry.presentation.view.recipe.RecipeFragment"
-        android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe" >
-        <argument
-            android:name="recipeId"
-            android:defaultValue="667163" />
-    </fragment>
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.styleru.curry.presentation.view.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.styleru.curry.presentation.view.recipe.RecipeFragment"
+        android:label="RecipeFragment" />
 </navigation>

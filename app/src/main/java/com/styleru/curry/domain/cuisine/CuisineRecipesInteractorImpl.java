@@ -26,7 +26,6 @@ public class CuisineRecipesInteractorImpl implements CuisineRecipesInteractor {
 
     /**
      * Метод для получения рецептов определенной кухни (используется на главном экране)
-     * @return Ответ с сервера, очевидно
      */
     @Override
     public Single<CuisineRecipes> getCuisineRecipes() {

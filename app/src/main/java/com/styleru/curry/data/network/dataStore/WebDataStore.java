@@ -1,5 +1,6 @@
 package com.styleru.curry.data.network.dataStore;
 
+import com.styleru.curry.data.models.recipe.Recipe;
 import com.styleru.curry.domain.cuisine.models.CuisineRecipes;
 
 import io.reactivex.Single;
@@ -13,7 +14,13 @@ public interface WebDataStore {
     /**
      * Метод для получения рецептов определенной кухни (используется на главном экране)
      * @param cuisine Кухня, рецепты которой необходимо получить
-     * @return Ответ с сервера, очевидно
      */
     Single<CuisineRecipes> getCuisineRecipes(String cuisine);
+
+    /**
+     * Метод для получения подробной инфы о рецепте по id
+     * @param id id рецепта
+     */
+    Single<Recipe> getRecipeById(int id);
+
 }
