@@ -32,4 +32,11 @@
 
     <string name="ingredients">Ingredients</string>
     <string name="instructions">Instructions</string>
+
+    <string name="recipe_error">Unfortunatelly, there are no instructions for this recipe :(</string>
+    <string name="check_internet">Something is wrong :( \nCheck your internet connection</string>
+
+    <string name="servings">%1$d servings</string>
+    <string name="serving">%1$d serving</string>
+    <string name="time">%1$d min</string>
 </resources>

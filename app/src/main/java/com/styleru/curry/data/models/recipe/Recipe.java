@@ -2,9 +2,10 @@ package com.styleru.curry.data.models.recipe;
 
 import com.google.gson.annotations.SerializedName;
 import com.styleru.curry.data.models.Ingredient;
+import com.styleru.curry.presentation.view.recipe.models.AnalyzedInstruction;
+import com.styleru.curry.presentation.view.recipe.models.Instruction;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Recipe {
 
@@ -19,7 +20,9 @@ public class Recipe {
     private int readyInMinutes;
     @SerializedName("image")
     private String imageUrl;
-    private String instructions;
+    private String instruction;
+    @SerializedName("analyzedInstructions")
+    private ArrayList<Instruction> instructions;
 
     public int getId() {
         return id;
@@ -45,8 +48,8 @@ public class Recipe {
         return ingredientsList;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public String getInstruction() {
+        return instruction;
     }
 
     public String getSourceUrl() {
@@ -85,8 +88,8 @@ public class Recipe {
         this.ingredientsList = ingredientsList;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
     }
 
     public void setSourceUrl(String sourceUrl) {
@@ -99,5 +102,13 @@ public class Recipe {
 
     public void setVegetarian(boolean vegetarian) {
         this.vegetarian = vegetarian;
+    }
+
+    public ArrayList<Instruction> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(ArrayList<Instruction> instructions) {
+        this.instructions = instructions;
     }
 }

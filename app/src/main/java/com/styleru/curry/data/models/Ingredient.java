@@ -8,13 +8,13 @@ public class Ingredient implements Parcelable {
     private int id;
     private String name;
     private float amount;
-    private String unitShort;
+    private String unit;
 
     private Ingredient(Parcel in) {
         id = in.readInt();
         name = in.readString();
         amount = in.readInt();
-        unitShort = in.readString();
+        unit = in.readString();
     }
 
     public int getId() {
@@ -30,7 +30,7 @@ public class Ingredient implements Parcelable {
     }
 
     public String getUnitShort() {
-        return unitShort;
+        return unit;
     }
 
     public void setId(int id) {
@@ -46,7 +46,7 @@ public class Ingredient implements Parcelable {
     }
 
     public void setUnitShort(String unitShort) {
-        this.unitShort = unitShort;
+        this.unit = unitShort;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Ingredient implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeFloat(amount);
-        dest.writeString(unitShort);
+        dest.writeString(unit);
     }
 
     public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {

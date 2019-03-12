@@ -16,7 +16,7 @@ public class CuisineRecipesInteractorImpl implements CuisineRecipesInteractor {
     private CuisineRecipesRepository recipesRepository;
 
     // Список со всеми доступными кухнями
-    private static final List<String> cuisines = new ArrayList<>(Arrays.asList("african", "chinese", "japanese", "korean", "indian", "british",
+    private List<String> cuisines = new ArrayList<>(Arrays.asList("african", "chinese", "japanese", "korean", "indian", "british",
             "french", "italian", "mexican", "spanish", "jewish", "american", "greek", "german"));
 
     @Inject

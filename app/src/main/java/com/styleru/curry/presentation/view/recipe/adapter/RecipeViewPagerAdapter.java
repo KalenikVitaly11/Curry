@@ -16,20 +16,26 @@ public class RecipeViewPagerAdapter extends FragmentPagerAdapter {
     private String ingredientsTitle;
     private String instructionsTitle;
 
-    public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe, String ingredientsTitle, String instructionsTitle) {
+    private Fragment firstFragment;
+    private Fragment secondFragment;
+
+    public RecipeViewPagerAdapter(FragmentManager fm, Fragment firstFragment, Fragment secondFragment,  Recipe recipe, String ingredientsTitle, String instructionsTitle) {
         super(fm);
         this.recipe = recipe;
         this.ingredientsTitle = ingredientsTitle;
         this.instructionsTitle = instructionsTitle;
+
+        this.firstFragment = firstFragment;
+        this.secondFragment = secondFragment;
     }
 
     @Override
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return IngredientsFragment.newInstance(recipe.getIngredientsList());
+                return firstFragment;
             case 1:
-                return InstructionsFragment.newInstance(recipe);
+                return secondFragment;
         }
         return null;
     }

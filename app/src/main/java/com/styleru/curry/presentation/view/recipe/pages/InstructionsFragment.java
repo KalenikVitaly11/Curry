@@ -5,21 +5,30 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.styleru.curry.R;
 import com.styleru.curry.data.models.recipe.Recipe;
+import com.styleru.curry.presentation.view.recipe.adapter.InstructionsRecyclerAdapter;
+import com.styleru.curry.presentation.view.recipe.models.Step;
 
+import java.util.ArrayList;
+
+/**
+ * Фрагмент, содержащий инструкцию к конкретному рецепту
+ */
 public class InstructionsFragment extends Fragment {
 
     private static final String INSTRUCTIONS_KEY = "instructions_key";
-    private static final String SOURCE_KEY = "source_key";
-    private static final String SERVINGS_KEY = "servings_key";
 
-    private TextView instructions;
+    private RecyclerView instructionsRecycler;
+    private InstructionsRecyclerAdapter adapter;
+    private TextView recipeError;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +45,8 @@ public class InstructionsFragment extends Fragment {
     }
 
     private void initViews(View view){
-        instructions = view.findViewById(R.id.recipe_instructions);
+        instructionsRecycler = view.findViewById(R.id.instructions_recycler);
+        recipeError = view.findViewById(R.id.recipe_error);
     }
 
     private void init(){
@@ -45,16 +55,22 @@ public class InstructionsFragment extends Fragment {
 
     private void setTextFromArguments(){
         if(getArguments() != null){
-            instructions.setText(getArguments().getString(INSTRUCTIONS_KEY));
+            ArrayList instructions = getArguments().getParcelableArrayList(INSTRUCTIONS_KEY);
+
+            if(instructions == null){
+                recipeError.setVisibility(View.VISIBLE);
+            } else {
+                adapter = new InstructionsRecyclerAdapter(instructions);
+                instructionsRecycler.setAdapter(adapter);
+            }
+
         }
     }
 
-    public static InstructionsFragment newInstance(Recipe recipe){
+    public static InstructionsFragment newInstance(ArrayList<Step> steps){
         InstructionsFragment instructionsFragment = new InstructionsFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(INSTRUCTIONS_KEY, recipe.getInstructions());
-        bundle.putString(SOURCE_KEY, recipe.getSourceUrl());
-        bundle.putInt(SERVINGS_KEY, recipe.getServings());
+        bundle.putParcelableArrayList(INSTRUCTIONS_KEY, steps);
 
         instructionsFragment.setArguments(bundle);
         return instructionsFragment;

@@ -37,6 +37,7 @@
         android:layout_marginTop="12dp"
         android:text="Русская кухня"
         android:textSize="@dimen/recycler_title_text"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/search_recipe_title"
         app:layout_constraintTop_toBottomOf="@id/search_recipe_title" />
 
@@ -59,6 +60,7 @@
         android:layout_height="wrap_content"
         android:text="Немецкая кухня"
         android:textSize="@dimen/recycler_title_text"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/search_recipe_title"
         app:layout_constraintTop_toBottomOf="@id/cuisine_recipes_one" />
 
@@ -81,6 +83,7 @@
         android:layout_height="wrap_content"
         android:text="Индийская кухня"
         android:textSize="@dimen/recycler_title_text"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/search_recipe_title"
         app:layout_constraintTop_toBottomOf="@id/cuisine_recipes_two" />
 
@@ -96,6 +99,28 @@
         app:layout_constraintTop_toBottomOf="@id/search_recipe_third_title"
         tools:itemCount="10"
         tools:listitem="@layout/search_recipe_cuisine_item" />
+
+    <ProgressBar
+        android:id="@+id/cuisine_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/cuisine_check_internet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:text="@string/check_internet"/>
 
 
 </android.support.constraint.ConstraintLayout>

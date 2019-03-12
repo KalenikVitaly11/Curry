@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ import javax.inject.Inject;
 import androidx.navigation.Navigation;
 
 /*
- * Фрагмент, на котором отображаются списки с рецептами определенных кухонь мира
+ * Фрагмент, на котором отображаются списки с рецептами определенных кухонь мира (первая вкладка нижнего меню)
  */
 public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick, CuisineView {
 
@@ -33,6 +34,7 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     private RecyclerView cuisineRecyclerViewOne;
     private RecyclerView cuisineRecyclerViewTwo;
     private RecyclerView cuisineRecyclerViewThree;
+
     private CuisineRecyclerViewAdapter adapterOne;
     private CuisineRecyclerViewAdapter adapterTwo;
     private CuisineRecyclerViewAdapter adapterThree;
@@ -41,6 +43,8 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     private TextView cuisineTitleOne;
     private TextView cuisineTitleTwo;
     private TextView cuisineTitleThree;
+    private ProgressBar progressBar;
+    private TextView checkInternet;
 
     @Inject
     protected CuisinePresenter presenter;
@@ -56,6 +60,7 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
         initViews(view);
         initOnClicks();
         init();
+        initRecyclers();
     }
 
     private void initViews(View view) {
@@ -66,23 +71,15 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
         cuisineTitleTwo = view.findViewById(R.id.search_recipe_second_title);
         cuisineTitleThree = view.findViewById(R.id.search_recipe_third_title);
         search = view.findViewById(R.id.search);
+        progressBar = view.findViewById(R.id.cuisine_progress_bar);
+        checkInternet = view.findViewById(R.id.cuisine_check_internet);
     }
 
     private void init() {
         // Проводим инъекцию
         CurryApplication.getCuisineComponent().inject(this);
 
-        adapterOne = new CuisineRecyclerViewAdapter(this);
-        cuisineRecyclerViewOne.setAdapter(adapterOne);
-
-        adapterTwo = new CuisineRecyclerViewAdapter(this);
-        cuisineRecyclerViewTwo.setAdapter(adapterTwo);
-
-        adapterThree = new CuisineRecyclerViewAdapter(this);
-        cuisineRecyclerViewThree.setAdapter(adapterThree);
-
         presenter.attachView(this);
-
         presenter.getCuisineRecipesOne();
         presenter.getCuisineRecipesTwo();
         presenter.getCuisineRecipesThree();
@@ -94,9 +91,19 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
         });
     }
 
+    private void initRecyclers(){
+        adapterOne = new CuisineRecyclerViewAdapter(this);
+        cuisineRecyclerViewOne.setAdapter(adapterOne);
+
+        adapterTwo = new CuisineRecyclerViewAdapter(this);
+        cuisineRecyclerViewTwo.setAdapter(adapterTwo);
+
+        adapterThree = new CuisineRecyclerViewAdapter(this);
+        cuisineRecyclerViewThree.setAdapter(adapterThree);
+    }
+
     /**
      * OnClick метод для адаптера - нажимаем на элемент и идем во фрагмент о рецепте
-     *
      * @param id id нажатого элемента, который передается во фрагмент, чтобы там отобразить подробную инфу о рецепте
      */
     @Override
@@ -107,23 +114,36 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     }
 
     /**
-     * Обновляем данные в адаптере
-     *
+     * Обновляем данные в первом адаптере
      * @param cuisineRecipes объект с рецептами, получаемый с сервера
      */
     @Override
     public void setDataOne(CuisineRecipes cuisineRecipes) {
+        progressBar.setVisibility(View.GONE);
+        cuisineTitleOne.setVisibility(View.VISIBLE);
         cuisineTitleOne.setText(cuisineRecipes.getCuisine());
         adapterOne.updateData(cuisineRecipes.getShortRecipes());    }
 
+    /**
+     * Обновляем данные во втором адаптере
+     * @param cuisineRecipes объект с рецептами, получаемый с сервера
+     */
     @Override
     public void setDataTwo(CuisineRecipes cuisineRecipes) {
+        progressBar.setVisibility(View.GONE);
+        cuisineTitleTwo.setVisibility(View.VISIBLE);
         cuisineTitleTwo.setText(cuisineRecipes.getCuisine());
         adapterTwo.updateData(cuisineRecipes.getShortRecipes());
     }
 
+    /**
+     * Обновляем данные в третьем адаптере
+     * @param cuisineRecipes объект с рецептами, получаемый с сервера
+     */
     @Override
     public void setDataThree(CuisineRecipes cuisineRecipes) {
+        progressBar.setVisibility(View.GONE);
+        cuisineTitleThree.setVisibility(View.VISIBLE);
         cuisineTitleThree.setText(cuisineRecipes.getCuisine());
         adapterThree.updateData(cuisineRecipes.getShortRecipes());
     }
@@ -134,6 +154,8 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     @Override
     public void showError() {
         Toast.makeText(getContext(), getResources().getText(R.string.error), Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        checkInternet.setVisibility(View.VISIBLE);
     }
 
 }

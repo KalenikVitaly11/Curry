@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:layout_marginTop="24dp">
+
+    <TextView
+        android:id="@+id/ingredient_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="+"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/circle_number_textview"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/ingredient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="@id/ingredient_plus"
+        app:layout_constraintBottom_toBottomOf="@id/ingredient_plus"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/ingredient_plus"/>
+
+    <TextView
+        android:id="@+id/ingredient_amount"
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/ingredient_name"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/ingredient_unit"/>
+
+    <TextView
+        android:id="@+id/ingredient_unit"
+        android:layout_width="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/ingredient_name"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</android.support.constraint.ConstraintLayout>

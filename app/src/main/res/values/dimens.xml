@@ -13,4 +13,5 @@
     <dimen name="tab_layout_height">56dp</dimen>
     <dimen name="recipe_image_size">300dp</dimen>
     <dimen name="recipe_item_image_size">112dp</dimen>
+    <dimen name="instructions_item_margin">16dp</dimen>
 </resources>

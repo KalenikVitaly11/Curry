@@ -12,9 +12,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,17 +24,27 @@ import com.styleru.curry.data.models.recipe.Recipe;
 import com.styleru.curry.presentation.presenter.recipe.RecipePresenter;
 import com.styleru.curry.presentation.view.cuisine.CuisineFragment;
 import com.styleru.curry.presentation.view.recipe.adapter.RecipeViewPagerAdapter;
+import com.styleru.curry.presentation.view.recipe.pages.IngredientsFragment;
+import com.styleru.curry.presentation.view.recipe.pages.InstructionsFragment;
 
 import javax.inject.Inject;
 
+/**
+ * Фрагмент, содержащий информацию о конкретном рецепте
+ */
 public class RecipeFragment extends Fragment implements RecipeView {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private RecipeViewPagerAdapter viewPagerAdapter;
 
+
     private TextView recipeTitle;
     private ImageView recipeImage;
+    private TextView recipeServings;
+    private TextView recipeTime;
+    private ProgressBar progressBar;
+    private TextView checkInternet;
 
     private BottomSheetBehavior bottomSheetBehavior;
     private ConstraintLayout bottomSheet;
@@ -47,7 +56,7 @@ public class RecipeFragment extends Fragment implements RecipeView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about_recipe, container, false);
+        return inflater.inflate(R.layout.fragment_recipe, container, false);
     }
 
     @Override
@@ -57,17 +66,38 @@ public class RecipeFragment extends Fragment implements RecipeView {
         init();
     }
 
+    /**
+     * Получаем инфу с сервера
+     * @param recipe Ответ от сервера
+     */
+    @Override
+    public void passData(Recipe recipe) {
+        setDataToViews(recipe);
+        initViewPager(recipe);
+    }
+
+    /**
+     *  Показываем пользователю сообщение об ошибке
+     */
+    @Override
+    public void showError() {
+        Toast.makeText(getContext(), R.string.error, Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        checkInternet.setVisibility(View.VISIBLE);
+    }
+
     private void initViews(View view) {
         viewPager = view.findViewById(R.id.recipe_pager);
         tabLayout = view.findViewById(R.id.recipe_tab_layout);
         bottomSheet = view.findViewById(R.id.bottom_sheet);
         recipeTitle = view.findViewById(R.id.recipe_title);
         recipeImage = view.findViewById(R.id.recipe_image);
+        recipeServings = view.findViewById(R.id.recipe_servings);
+        recipeTime = view.findViewById(R.id.recipe_time);
+        progressBar = view.findViewById(R.id.recipe_progress_bar);
+        checkInternet = view.findViewById(R.id.recipe_check_internet);
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
-
-        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void init() {
@@ -78,19 +108,70 @@ public class RecipeFragment extends Fragment implements RecipeView {
         if (getArguments() != null) {
             presenter.getRecipeById(getArguments().getInt(CuisineFragment.ID_KEY));
         }
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    public void passData(Recipe recipe) {
+    /**
+     * Закидываем полученную с сервера инфу во вью
+     * @param recipe Ответ от сервера
+     */
+    private void setDataToViews(Recipe recipe) {
+        showViews();
+        Picasso.get().load(recipe.getImageUrl()).into(recipeImage);
         recipeTitle.setText(recipe.getTitle());
-        Picasso.get()
-                .load(recipe.getImageUrl())
-                .into(recipeImage);
+        progressBar.setVisibility(View.GONE);
 
-        viewPagerAdapter = new RecipeViewPagerAdapter(getChildFragmentManager(), recipe,
-                getContext().getResources().getString(R.string.ingredients), getContext().getResources().getString(R.string.instructions));
+        // Отдельная обработка, если у нас одна порция. Меняем на единственное число
+        if (recipe.getServings() == 1) {
+            recipeServings.setText(getResources().getString(R.string.serving, recipe.getServings()));
+        } else {
+            recipeServings.setText(getResources().getString(R.string.servings, recipe.getServings()));
+        }
+
+        recipeTime.setText(getResources().getString(R.string.time, recipe.getReadyInMinutes()));
+    }
+
+
+    /**
+     *  Показываем вью, которые были спрятаны во время загрузки
+     */
+    private void showViews() {
+        recipeTime.setVisibility(View.VISIBLE);
+        recipeServings.setVisibility(View.VISIBLE);
+        recipeImage.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Инициализируем viewPager здесь, так как нужно дождаться ответа с сервера и передать его фрагментам
+     * @param recipe Ответ с сервера
+     */
+    private void initViewPager(Recipe recipe){
+        Fragment firstFragment = IngredientsFragment.newInstance(recipe.getIngredientsList());
+        Fragment secondFragment;
+
+        // Иногда сервер не дает инструкций, поэтому передаем null, чтобы там отследить и показать пользователю, что инструкций нет
+        if(recipe.getInstructions().size() == 0){
+            secondFragment = InstructionsFragment.newInstance(null);
+        } else {
+            secondFragment = InstructionsFragment.newInstance(recipe.getInstructions().get(0).getSteps());
+        }
+
+        String ingredientsTitle = getContext().getResources().getString(R.string.ingredients);
+        String instructionsTitle = getContext().getResources().getString(R.string.instructions);
+
+        viewPagerAdapter = new RecipeViewPagerAdapter(getChildFragmentManager(),firstFragment, secondFragment,
+                recipe, ingredientsTitle, instructionsTitle);
         viewPager.setAdapter(viewPagerAdapter);
 
+        // Если установить лисенер раньше, то по какой то причине BottomSheet открывается, так что вызов метода здесь
+        initListeners();
+    }
+
+    /**
+     * С помощью этого лисенера при нажатии на вкладки BottomSheet будет раскрываться
+     */
+    private void initListeners() {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -109,8 +190,4 @@ public class RecipeFragment extends Fragment implements RecipeView {
         });
     }
 
-    @Override
-    public void showError() {
-        Toast.makeText(getContext(), R.string.error, Toast.LENGTH_LONG).show();
-    }
 }

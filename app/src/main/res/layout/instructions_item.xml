@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/instructions_item_margin"
+    android:layout_marginTop="@dimen/instructions_item_margin"
+    android:layout_marginEnd="@dimen/instructions_item_margin" >
+
+    <TextView
+        android:id="@+id/step_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:background="@drawable/circle_number_textview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/step_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="340dp"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/step_number"
+        app:layout_constraintTop_toTopOf="@id/step_number"/>
+
+</android.support.constraint.ConstraintLayout>
