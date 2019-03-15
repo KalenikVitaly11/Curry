@@ -1,5 +1,6 @@
 package com.styleru.curry.di.cuisine;
 
+import com.styleru.curry.data.network.api.CurryWebHelper;
 import com.styleru.curry.data.network.dataStore.WebDataStore;
 import com.styleru.curry.data.network.dataStore.WebDataStoreImpl;
 import com.styleru.curry.data.repositories.cuisine.CuisineRepositoryImpl;
@@ -24,7 +25,12 @@ public class CuisineModule {
     }
 
     @Provides
-    public WebDataStore provideWebDataStore(){
-        return new WebDataStoreImpl();
+    public WebDataStore provideWebDataStore(CurryWebHelper  curryWebHelper){
+        return new WebDataStoreImpl(curryWebHelper);
+    }
+
+    @Provides
+    public CurryWebHelper provideCurryWebHelper(){
+        return new CurryWebHelper();
     }
 }

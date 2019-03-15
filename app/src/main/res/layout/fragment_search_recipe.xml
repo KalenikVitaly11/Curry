@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="@id/search_recipe_title"
         app:layout_constraintTop_toBottomOf="@id/search_recipe_first_title"
         tools:itemCount="10"
-        tools:listitem="@layout/search_recipe_cuisine_item" />
+        tools:listitem="@layout/cuisine_item" />
 
     <TextView
         android:id="@+id/search_recipe_second_title"
@@ -75,7 +75,7 @@
         app:layout_constraintStart_toStartOf="@id/search_recipe_title"
         app:layout_constraintTop_toBottomOf="@id/search_recipe_second_title"
         tools:itemCount="10"
-        tools:listitem="@layout/search_recipe_cuisine_item" />
+        tools:listitem="@layout/cuisine_item" />
 
     <TextView
         android:id="@+id/search_recipe_third_title"
@@ -98,7 +98,7 @@
         app:layout_constraintStart_toStartOf="@id/search_recipe_title"
         app:layout_constraintTop_toBottomOf="@id/search_recipe_third_title"
         tools:itemCount="10"
-        tools:listitem="@layout/search_recipe_cuisine_item" />
+        tools:listitem="@layout/cuisine_item" />
 
     <ProgressBar
         android:id="@+id/cuisine_progress_bar"

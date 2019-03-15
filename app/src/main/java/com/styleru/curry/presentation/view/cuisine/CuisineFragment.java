@@ -24,12 +24,13 @@ import javax.inject.Inject;
 
 import androidx.navigation.Navigation;
 
+import static com.styleru.curry.presentation.view.recipe.RecipeFragment.ID_KEY;
+
 /*
  * Фрагмент, на котором отображаются списки с рецептами определенных кухонь мира (первая вкладка нижнего меню)
  */
 public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick, CuisineView {
 
-    public static final String ID_KEY = "recipeId";
 
     private RecyclerView cuisineRecyclerViewOne;
     private RecyclerView cuisineRecyclerViewTwo;

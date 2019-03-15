@@ -1,14 +1,20 @@
 package com.styleru.curry.data.models.recipe;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+
 import com.google.gson.annotations.SerializedName;
 import com.styleru.curry.data.models.Ingredient;
+import com.styleru.curry.data.models.typeConverters.IngredientConverter;
 import com.styleru.curry.presentation.view.recipe.models.AnalyzedInstruction;
 import com.styleru.curry.presentation.view.recipe.models.Instruction;
 
 import java.util.ArrayList;
 
+@Entity
 public class Recipe {
-
+    @PrimaryKey
     private int id;
     private String title;
     private boolean vegetarian;

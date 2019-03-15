@@ -1,8 +1,13 @@
 package com.styleru.curry.data.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.styleru.curry.data.models.typeConverters.IngredientConverter;
+
+@Entity
 public class Ingredient implements Parcelable {
 
     private int id;

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -34,6 +35,8 @@ import javax.inject.Inject;
  */
 public class RecipeFragment extends Fragment implements RecipeView {
 
+    public static final String ID_KEY = "recipeId";
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private RecipeViewPagerAdapter viewPagerAdapter;
@@ -45,6 +48,7 @@ public class RecipeFragment extends Fragment implements RecipeView {
     private TextView recipeTime;
     private ProgressBar progressBar;
     private TextView checkInternet;
+    private FloatingActionButton floatingActionButton;
 
     private BottomSheetBehavior bottomSheetBehavior;
     private ConstraintLayout bottomSheet;
@@ -96,6 +100,7 @@ public class RecipeFragment extends Fragment implements RecipeView {
         recipeTime = view.findViewById(R.id.recipe_time);
         progressBar = view.findViewById(R.id.recipe_progress_bar);
         checkInternet = view.findViewById(R.id.recipe_check_internet);
+        floatingActionButton = view.findViewById(R.id.recipe_fab);
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
     }
@@ -106,7 +111,7 @@ public class RecipeFragment extends Fragment implements RecipeView {
 
         presenter.attachView(this);
         if (getArguments() != null) {
-            presenter.getRecipeById(getArguments().getInt(CuisineFragment.ID_KEY));
+            presenter.getRecipeById(getArguments().getInt(ID_KEY));
         }
 
         tabLayout.setupWithViewPager(viewPager);
@@ -140,6 +145,7 @@ public class RecipeFragment extends Fragment implements RecipeView {
         recipeTime.setVisibility(View.VISIBLE);
         recipeServings.setVisibility(View.VISIBLE);
         recipeImage.setVisibility(View.VISIBLE);
+        floatingActionButton.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -168,10 +174,10 @@ public class RecipeFragment extends Fragment implements RecipeView {
         initListeners();
     }
 
-    /**
-     * С помощью этого лисенера при нажатии на вкладки BottomSheet будет раскрываться
-     */
+
     private void initListeners() {
+
+         // С помощью этого лисенера при нажатии на вкладки BottomSheet будет раскрываться
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -187,6 +193,10 @@ public class RecipeFragment extends Fragment implements RecipeView {
             public void onTabReselected(TabLayout.Tab tab) {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
+        });
+
+        floatingActionButton.setOnClickListener(view -> {
+
         });
     }
 

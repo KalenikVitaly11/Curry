@@ -19,6 +19,7 @@ public class CuisineRecyclerViewAdapter extends RecyclerView.Adapter<CuisineRecy
 
     private CuisineRecyclerOnClick onClick;
     private List<ShortRecipe> data;
+    private static final String IMAGE_BASE_URL = "https://spoonacular.com/recipeImages/";
 
     public CuisineRecyclerViewAdapter(List<ShortRecipe> newData, CuisineRecyclerOnClick onClick) {
         data = new ArrayList<>();
@@ -40,7 +41,7 @@ public class CuisineRecyclerViewAdapter extends RecyclerView.Adapter<CuisineRecy
     @NonNull
     @Override
     public CuisineRecyclerViewAdapter.CuisineViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.search_recipe_cuisine_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cuisine_item, viewGroup, false);
         return new CuisineViewHolder(view);
     }
 
@@ -48,7 +49,7 @@ public class CuisineRecyclerViewAdapter extends RecyclerView.Adapter<CuisineRecy
     public void onBindViewHolder(@NonNull CuisineViewHolder cuisineViewHolder, int i) {
         cuisineViewHolder.textView.setText(data.get(i).getTitle());
         Picasso.get()
-                .load("https://spoonacular.com/recipeImages/" + data.get(i).getImageUrl())
+                .load(IMAGE_BASE_URL + data.get(i).getImageUrl())
                 .into(cuisineViewHolder.imageView);
 
         cuisineViewHolder.itemView.setOnClickListener(view -> {
