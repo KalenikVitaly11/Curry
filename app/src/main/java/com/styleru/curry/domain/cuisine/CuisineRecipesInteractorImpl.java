@@ -19,6 +19,8 @@ public class CuisineRecipesInteractorImpl implements CuisineRecipesInteractor {
     private List<String> cuisines = new ArrayList<>(Arrays.asList("african", "chinese", "japanese", "korean", "indian", "british",
             "french", "italian", "mexican", "spanish", "jewish", "american", "greek", "german"));
 
+    private int requests = 0;
+
     @Inject
     public CuisineRecipesInteractorImpl(CuisineRecipesRepository recipesRepository) {
         this.recipesRepository = recipesRepository;
@@ -32,7 +34,7 @@ public class CuisineRecipesInteractorImpl implements CuisineRecipesInteractor {
         return recipesRepository.getCuisineRecipes(getCuisine());
     }
 
-    // TODO Проверить, что они нормально удаляются
+
     /**
      * Метод для получения рандомной кухни из списка
      * @return Рандомная кухня
@@ -40,7 +42,27 @@ public class CuisineRecipesInteractorImpl implements CuisineRecipesInteractor {
     private String getCuisine() {
         Random random = new Random();
         String cuisine = cuisines.get(random.nextInt(cuisines.size()));
-        cuisines.remove(cuisine);
+        removeElement(cuisine);
         return cuisine;
+    }
+
+    /**
+     * Удаляем элемент из списка, чтобы на экране не было двух одинаковых кухонь
+     * @param cuisine Кухня, которую необходимо удалить
+     */
+    private void removeElement(String cuisine){
+        requests++;
+        cuisines.remove(cuisine);
+
+        //  После каждого третьего запроса восстанавливаем список
+        if(requests >= 3){
+            restoreList();
+            requests = 0;
+        }
+    }
+
+    private void restoreList(){
+        cuisines = new ArrayList<>(Arrays.asList("african", "chinese", "japanese", "korean", "indian", "british",
+                "french", "italian", "mexican", "spanish", "jewish", "american", "greek", "german"));
     }
 }

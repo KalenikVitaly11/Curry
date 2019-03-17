@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.styleru.curry.R;
 import com.styleru.curry.data.models.recipe.Recipe;
+import com.styleru.curry.presentation.view.recipe.adapter.InstructionsItemDecoration;
 import com.styleru.curry.presentation.view.recipe.adapter.InstructionsRecyclerAdapter;
 import com.styleru.curry.presentation.view.recipe.models.Step;
 
@@ -46,7 +47,7 @@ public class InstructionsFragment extends Fragment {
 
     private void initViews(View view){
         instructionsRecycler = view.findViewById(R.id.instructions_recycler);
-        recipeError = view.findViewById(R.id.recipe_error);
+//        recipeError = view.findViewById(R.id.recipe_error);
     }
 
     private void init(){
@@ -58,9 +59,10 @@ public class InstructionsFragment extends Fragment {
             ArrayList instructions = getArguments().getParcelableArrayList(INSTRUCTIONS_KEY);
 
             if(instructions == null){
-                recipeError.setVisibility(View.VISIBLE);
+//                recipeError.setVisibility(View.VISIBLE);
             } else {
                 adapter = new InstructionsRecyclerAdapter(instructions);
+                instructionsRecycler.addItemDecoration(new InstructionsItemDecoration(40));
                 instructionsRecycler.setAdapter(adapter);
             }
 

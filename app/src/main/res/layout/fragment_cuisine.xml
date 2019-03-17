@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        tools:context=".presentation.view.cuisine.CuisineFragment">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/cuisine_shimmer_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            app:duration="800"
+            app:layout_constraintStart_toStartOf="@id/search_recipe_first_title"
+            app:layout_constraintTop_toTopOf="@id/search_recipe_first_title">
+
+            <include layout="@layout/cuisine_shimmer_layout" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/cuisine_shimmer_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:duration="800"
+            app:layout_constraintStart_toStartOf="@id/search_recipe_first_title"
+            app:layout_constraintTop_toBottomOf="@id/cuisine_shimmer_1">
+
+            <include layout="@layout/cuisine_shimmer_layout" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/cuisine_shimmer_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:duration="800"
+            app:layout_constraintStart_toStartOf="@id/search_recipe_first_title"
+            app:layout_constraintTop_toBottomOf="@id/cuisine_shimmer_2">
+
+            <include layout="@layout/cuisine_shimmer_layout" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/search_recipe_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginTop="@dimen/default_padding"
+            android:layout_marginEnd="@dimen/default_padding"
+            android:text="@string/recipes"
+            android:textSize="@dimen/fragment_title_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_recipe_first_title"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:textSize="@dimen/recycler_title_text"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/search_recipe_title"
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_title" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cuisine_recipes_one"
+            android:layout_width="wrap_content"
+            android:layout_height="152dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_first_title"
+            tools:itemCount="10"
+            tools:listitem="@layout/cuisine_item" />
+
+        <TextView
+            android:id="@+id/search_recipe_second_title"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/recycler_title_text"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/search_recipe_title"
+            app:layout_constraintTop_toBottomOf="@id/cuisine_recipes_one" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cuisine_recipes_two"
+            android:layout_width="match_parent"
+            android:layout_height="152dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_second_title"
+            tools:itemCount="10"
+            tools:listitem="@layout/cuisine_item" />
+
+        <TextView
+            android:id="@+id/search_recipe_third_title"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/recycler_title_text"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/search_recipe_title"
+            app:layout_constraintTop_toBottomOf="@id/cuisine_recipes_two" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cuisine_recipes_three"
+            android:layout_width="match_parent"
+            android:layout_height="152dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_third_title"
+            tools:itemCount="10"
+            tools:listitem="@layout/cuisine_item" />
+
+        <TextView
+            android:id="@+id/cuisine_check_internet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_internet"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

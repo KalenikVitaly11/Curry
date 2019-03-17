@@ -17,10 +17,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.styleru.curry.CurryApplication;
 import com.styleru.curry.R;
 import com.styleru.curry.data.models.recipe.RecipeResponse;
 import com.styleru.curry.presentation.presenter.search.SearchPresenter;
+import com.styleru.curry.presentation.view.main.FragmentOnBackPressedListener;
+import com.styleru.curry.presentation.view.main.MainActivity;
+import com.styleru.curry.presentation.view.search.adapter.SearchItemDecorator;
 import com.styleru.curry.presentation.view.search.adapter.SearchRecyclerOnClick;
 import com.styleru.curry.presentation.view.search.adapter.SearchRecyclerViewAdapter;
 
@@ -30,7 +34,7 @@ import androidx.navigation.Navigation;
 
 import static com.styleru.curry.presentation.view.recipe.RecipeFragment.ID_KEY;
 
-public class SearchFragment extends Fragment implements SearchView, SearchRecyclerOnClick {
+public class SearchFragment extends Fragment implements SearchView, SearchRecyclerOnClick, FragmentOnBackPressedListener {
 
     @Inject
     protected SearchPresenter presenter;
@@ -45,9 +49,12 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
     private ChipGroup cuisineChipGroup;
     private TextView dietTitle;
     private TextView cuisineTitle;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     private String dietFilter = "";
     private String cuisineFilter = "";
+
+    private boolean ifFilterMode = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,19 +67,38 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+        initListeners();
         init();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CurryApplication.clearSearchComponent();
     }
 
     @Override
     public void setData(RecipeResponse recipeResponse) {
         adapter.updateData(recipeResponse.getRecipeList());
+        shimmerFrameLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.stopShimmerAnimation();
     }
 
+    /**
+     * Показываем ошибку
+     */
     @Override
     public void showError() {
         Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_LONG).show();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.stopShimmerAnimation();
     }
 
+    /**
+     * Обрабатываем нажатие на элемент ресайклера
+     *
+     * @param id id рецепта, на который нажали
+     */
     @Override
     public void recyclerOnClick(int id) {
         Bundle bundle = new Bundle();
@@ -88,80 +114,111 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         cuisineTitle = view.findViewById(R.id.search_cuisine_title);
         dietChip = view.findViewById(R.id.diet_chip);
         cuisineChip = view.findViewById(R.id.cuisine_chip);
-
         searchEditText = view.findViewById(R.id.search_edittext);
+        shimmerFrameLayout = view.findViewById(R.id.search_shimmer);
+    }
+
+    private void initListeners() {
+        // Лисенер нажатия кнопки поиска на клавиатуре
         searchEditText.setOnEditorActionListener((editText, actionId, event) -> {
             int dietId = dietChipGroup.getCheckedChipId();
             int cuisineId = cuisineChipGroup.getCheckedChipId();
 
+            // Если есть выбранные чипсы, то ставим показываем чипсы в поиске и закидываем туда текст,
+            // а чипсы-фильтры очищаем
             if (dietId != -1) {
-                dietFilter = ((Chip) view.findViewById(dietId)).getText().toString();
+                dietFilter = ((Chip) getView().findViewById(dietId)).getText().toString();
                 dietChip.setVisibility(View.VISIBLE);
                 dietChipGroup.clearCheck();
             }
 
             if (cuisineId != -1) {
-                cuisineFilter = ((Chip) view.findViewById(cuisineChipGroup.getCheckedChipId())).getText().toString();
+                cuisineFilter = ((Chip) getView().findViewById(cuisineChipGroup.getCheckedChipId())).getText().toString();
                 cuisineChip.setVisibility(View.VISIBLE);
                 cuisineChipGroup.clearCheck();
             }
 
             search();
-            return false;
+            return true;
         });
 
+        // Лисенер нажатия крестика на чипсе
         dietChip.setOnCloseIconClickListener(chip -> {
             dietChip.setText("");
             dietFilter = "";
             dietChip.setVisibility(View.GONE);
+
+            // Если обе чипсы закрыты, показываем фильтры
             if (cuisineChip.getVisibility() == View.GONE) {
-                showFilters();
+                filterMode();
             }
         });
 
+        // Лисенер нажатия крестика на чипсе
         cuisineChip.setOnCloseIconClickListener(chip -> {
             cuisineChip.setText("");
             cuisineFilter = "";
             cuisineChip.setVisibility(View.GONE);
+
+            // Если обе чипсы закрыты, показываем фильтры
             if (dietChip.getVisibility() == View.GONE) {
-                showFilters();
+                filterMode();
             }
         });
     }
 
     private void init() {
-        CurryApplication.getSearchComponent().inject(this);
+        CurryApplication.addSearchComponent().inject(this);
+
         initRecycler();
         setSearchFocus();
         presenter.attachView(this);
     }
 
+    /**
+     * Инициализируем ресайклер
+     */
     private void initRecycler() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        adapter = new SearchRecyclerViewAdapter(this::recyclerOnClick);
+        adapter = new SearchRecyclerViewAdapter(this);
         recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(new SearchItemDecorator(2, 20));
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Наводим фокус на поле ввода
+     */
     private void setSearchFocus() {
         searchEditText.requestFocus();
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    private void showFilters() {
+    /**
+     * Показываем фильтры и очищаем ресайклер
+     */
+    private void filterMode() {
         dietChipGroup.setVisibility(View.VISIBLE);
         cuisineChipGroup.setVisibility(View.VISIBLE);
         dietTitle.setVisibility(View.VISIBLE);
         cuisineTitle.setVisibility(View.VISIBLE);
-
+        cuisineChip.setVisibility(View.GONE);
+        dietChip.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
+        shimmerFrameLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.stopShimmerAnimation();
 
         adapter.clear();
         searchEditText.setText("");
+        ifFilterMode = true;
     }
 
-    private void hideFilters() {
+    /**
+     * Прячем фильтры
+     */
+    private void searchMode() {
+        recyclerView.setVisibility(View.VISIBLE);
         dietChip.setText(dietFilter);
         cuisineChip.setText(cuisineFilter);
         dietChipGroup.setVisibility(View.GONE);
@@ -169,10 +226,33 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         dietTitle.setVisibility(View.GONE);
         cuisineTitle.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmerAnimation();
+        ifFilterMode = false;
     }
 
+    /**
+     * Поиск нужного рецепта
+     */
     private void search() {
         presenter.searchRecipes(searchEditText.getText().toString(), cuisineFilter, dietFilter, "");
-        hideFilters();
+        searchMode();
+    }
+
+    /**
+     * Обрабатываем нажатие кнопки "назад"
+     *
+     * @return true если обработали нажатие
+     * false если не обработали
+     */
+    @Override
+    public boolean onBackPressed() {
+        // Если в режиме поиска, то переходим в режим фильтров
+        if (!ifFilterMode) {
+            filterMode();
+            return true;
+        }
+
+        return false;
     }
 }

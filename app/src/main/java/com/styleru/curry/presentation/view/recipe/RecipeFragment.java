@@ -1,6 +1,7 @@
 package com.styleru.curry.presentation.view.recipe;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,12 +19,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 import com.styleru.curry.CurryApplication;
 import com.styleru.curry.R;
 import com.styleru.curry.data.models.recipe.Recipe;
 import com.styleru.curry.presentation.presenter.recipe.RecipePresenter;
 import com.styleru.curry.presentation.view.cuisine.CuisineFragment;
+import com.styleru.curry.presentation.view.main.FragmentOnBackPressedListener;
 import com.styleru.curry.presentation.view.recipe.adapter.RecipeViewPagerAdapter;
 import com.styleru.curry.presentation.view.recipe.pages.IngredientsFragment;
 import com.styleru.curry.presentation.view.recipe.pages.InstructionsFragment;
@@ -33,7 +36,7 @@ import javax.inject.Inject;
 /**
  * Фрагмент, содержащий информацию о конкретном рецепте
  */
-public class RecipeFragment extends Fragment implements RecipeView {
+public class RecipeFragment extends Fragment implements RecipeView, FragmentOnBackPressedListener {
 
     public static final String ID_KEY = "recipeId";
 
@@ -46,12 +49,13 @@ public class RecipeFragment extends Fragment implements RecipeView {
     private ImageView recipeImage;
     private TextView recipeServings;
     private TextView recipeTime;
-    private ProgressBar progressBar;
     private TextView checkInternet;
     private FloatingActionButton floatingActionButton;
 
     private BottomSheetBehavior bottomSheetBehavior;
     private ConstraintLayout bottomSheet;
+
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     @Inject
     protected RecipePresenter presenter;
@@ -70,6 +74,12 @@ public class RecipeFragment extends Fragment implements RecipeView {
         init();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CurryApplication.clearRecipeComponent();
+    }
+
     /**
      * Получаем инфу с сервера
      * @param recipe Ответ от сервера
@@ -86,8 +96,19 @@ public class RecipeFragment extends Fragment implements RecipeView {
     @Override
     public void showError() {
         Toast.makeText(getContext(), R.string.error, Toast.LENGTH_LONG).show();
-        progressBar.setVisibility(View.GONE);
         checkInternet.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.stopShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showEmptyIcon() {
+        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+    }
+
+    @Override
+    public void showFilledIcon() {
+        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
     }
 
     private void initViews(View view) {
@@ -98,23 +119,23 @@ public class RecipeFragment extends Fragment implements RecipeView {
         recipeImage = view.findViewById(R.id.recipe_image);
         recipeServings = view.findViewById(R.id.recipe_servings);
         recipeTime = view.findViewById(R.id.recipe_time);
-        progressBar = view.findViewById(R.id.recipe_progress_bar);
         checkInternet = view.findViewById(R.id.recipe_check_internet);
         floatingActionButton = view.findViewById(R.id.recipe_fab);
+        shimmerFrameLayout = view.findViewById(R.id.recipe_shimmer);
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
     }
 
     private void init() {
-        CurryApplication.getRecipeComponent()
-                .inject(this);
-
+        CurryApplication.addRecipeComponent().inject(this);
         presenter.attachView(this);
         if (getArguments() != null) {
             presenter.getRecipeById(getArguments().getInt(ID_KEY));
         }
 
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmerAnimation();
     }
 
     /**
@@ -125,7 +146,6 @@ public class RecipeFragment extends Fragment implements RecipeView {
         showViews();
         Picasso.get().load(recipe.getImageUrl()).into(recipeImage);
         recipeTitle.setText(recipe.getTitle());
-        progressBar.setVisibility(View.GONE);
 
         // Отдельная обработка, если у нас одна порция. Меняем на единственное число
         if (recipe.getServings() == 1) {
@@ -141,7 +161,10 @@ public class RecipeFragment extends Fragment implements RecipeView {
     /**
      *  Показываем вью, которые были спрятаны во время загрузки
      */
+    @SuppressLint("RestrictedApi")
     private void showViews() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.GONE);
         recipeTime.setVisibility(View.VISIBLE);
         recipeServings.setVisibility(View.VISIBLE);
         recipeImage.setVisibility(View.VISIBLE);
@@ -167,7 +190,7 @@ public class RecipeFragment extends Fragment implements RecipeView {
         String instructionsTitle = getContext().getResources().getString(R.string.instructions);
 
         viewPagerAdapter = new RecipeViewPagerAdapter(getChildFragmentManager(),firstFragment, secondFragment,
-                recipe, ingredientsTitle, instructionsTitle);
+                ingredientsTitle, instructionsTitle);
         viewPager.setAdapter(viewPagerAdapter);
 
         // Если установить лисенер раньше, то по какой то причине BottomSheet открывается, так что вызов метода здесь
@@ -196,8 +219,16 @@ public class RecipeFragment extends Fragment implements RecipeView {
         });
 
         floatingActionButton.setOnClickListener(view -> {
-
+            presenter.saveRecipe();
         });
     }
 
+    @Override
+    public boolean onBackPressed() {
+        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            return true;
+        }
+        return false;
+    }
 }

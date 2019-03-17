@@ -1,6 +1,7 @@
 package com.styleru.curry.data.models.recipe;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverter;
 
@@ -19,6 +20,8 @@ public class Recipe {
     private String title;
     private boolean vegetarian;
     private boolean vegan;
+    @Ignore
+    private boolean fRomDb = false;
     private int servings;
     private String sourceUrl;
     @SerializedName("extendedIngredients")
@@ -29,6 +32,15 @@ public class Recipe {
     private String instruction;
     @SerializedName("analyzedInstructions")
     private ArrayList<Instruction> instructions;
+
+
+    public boolean isfRomDb() {
+        return fRomDb;
+    }
+
+    public void setfRomDb(boolean fRomDb) {
+        this.fRomDb = fRomDb;
+    }
 
     public int getId() {
         return id;

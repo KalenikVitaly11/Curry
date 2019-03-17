@@ -11,12 +11,12 @@ import io.reactivex.Single;
 /**
  * Interactor для получения рецептов определенной кухни (используется на главном экране)
  */
-public class CuisineRepositoryImpl implements CuisineRecipesRepository {
+public class CuisineRecipesRepositoryImpl implements CuisineRecipesRepository {
 
     private WebDataStore webDataStore;
 
     @Inject
-    public CuisineRepositoryImpl(WebDataStore webDataStore){
+    public CuisineRecipesRepositoryImpl(WebDataStore webDataStore){
         this.webDataStore = webDataStore;
     }
 

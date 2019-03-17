@@ -29,8 +29,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     // Navigation
-    implementation "android.arch.navigation:navigation-fragment:1.0.0-rc02"
-    implementation "android.arch.navigation:navigation-ui:1.0.0-rc02"
+    implementation "android.arch.navigation:navigation-fragment:1.0.0"
+    implementation "android.arch.navigation:navigation-ui:1.0.0"
 
     // Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
@@ -53,6 +53,9 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Shimmer effect
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
     implementation 'com.android.support:support-v4:28.0.0'
     testImplementation 'junit:junit:4.12'

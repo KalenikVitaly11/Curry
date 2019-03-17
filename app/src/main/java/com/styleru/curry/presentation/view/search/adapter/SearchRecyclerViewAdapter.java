@@ -42,7 +42,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder searchViewHolder, int i) {
         searchViewHolder.title.setText(data.get(i).getTitle());
-        searchViewHolder.time.setText(String.valueOf(data.get(i).getReadyInMinutes()));
+        searchViewHolder.time.setText(searchViewHolder.itemView.getContext().getResources().getString(R.string.time, data.get(i).getReadyInMinutes()));
 
         Picasso.get()
                 .load(IMAGE_BASE_URL + data.get(i).getImageUrl())

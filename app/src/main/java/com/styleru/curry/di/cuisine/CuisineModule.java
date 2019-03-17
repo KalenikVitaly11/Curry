@@ -1,9 +1,6 @@
 package com.styleru.curry.di.cuisine;
 
-import com.styleru.curry.data.network.api.CurryWebHelper;
-import com.styleru.curry.data.network.dataStore.WebDataStore;
-import com.styleru.curry.data.network.dataStore.WebDataStoreImpl;
-import com.styleru.curry.data.repositories.cuisine.CuisineRepositoryImpl;
+import com.styleru.curry.di.main.FragmentScope;
 import com.styleru.curry.domain.cuisine.CuisineRecipesInteractor;
 import com.styleru.curry.domain.cuisine.CuisineRecipesInteractorImpl;
 import com.styleru.curry.domain.cuisine.CuisineRecipesRepository;
@@ -15,22 +12,8 @@ import dagger.Provides;
 public class CuisineModule {
 
     @Provides
+    @FragmentScope
     public CuisineRecipesInteractor provideCuisineInteractor(CuisineRecipesRepository cuisineRecipesRepository){
         return new CuisineRecipesInteractorImpl(cuisineRecipesRepository);
-    }
-
-    @Provides
-    public CuisineRecipesRepository provideCuisineRecipesRepository(WebDataStore webDataStore){
-        return new CuisineRepositoryImpl(webDataStore);
-    }
-
-    @Provides
-    public WebDataStore provideWebDataStore(CurryWebHelper  curryWebHelper){
-        return new WebDataStoreImpl(curryWebHelper);
-    }
-
-    @Provides
-    public CurryWebHelper provideCurryWebHelper(){
-        return new CurryWebHelper();
     }
 }

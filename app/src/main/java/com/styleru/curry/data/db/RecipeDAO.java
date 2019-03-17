@@ -16,6 +16,9 @@ public abstract class RecipeDAO {
     @Query("select * from recipe")
     public abstract List<Recipe> getRecipes();
 
+    @Query("select * from recipe where id = :id")
+    public abstract Recipe getRecipeById(int id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insert(Recipe recipe);
 

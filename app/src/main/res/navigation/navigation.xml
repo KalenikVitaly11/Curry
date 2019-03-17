@@ -6,15 +6,10 @@
     app:startDestination="@id/cuisineFragment">
 
     <fragment
-        android:id="@+id/makeDietFragment"
-        android:name="com.styleru.curry.presentation.view.makeDiet.MakeDietFragment"
-        android:label="fragment_make_diet"
-        tools:layout="@layout/fragment_make_diet" />
-    <fragment
         android:id="@+id/cuisineFragment"
         android:name="com.styleru.curry.presentation.view.cuisine.CuisineFragment"
         android:label="fragment_search_recipe"
-        tools:layout="@layout/fragment_search_recipe" >
+        tools:layout="@layout/fragment_cuisine" >
         <action
             android:id="@+id/action_cuisineFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -26,7 +21,11 @@
         android:id="@+id/bookmarksFragment"
         android:name="com.styleru.curry.presentation.view.bookmarks.BookmarksFragment"
         android:label="fragment_bookmarks"
-        tools:layout="@layout/fragment_bookmarks" />
+        tools:layout="@layout/fragment_bookmarks" >
+        <action
+            android:id="@+id/action_bookmarksFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.styleru.curry.presentation.view.search.SearchFragment"

@@ -7,4 +7,8 @@ public interface RecipeView {
     void passData(Recipe recipe);
 
     void showError();
+
+    void showEmptyIcon();
+
+    void showFilledIcon();
 }

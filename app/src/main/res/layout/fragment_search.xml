@@ -203,11 +203,32 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@id/filters_chip_group" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/search_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        app:duration="800"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/filters_chip_group">
+
+        <include layout="@layout/search_shimmer_layout" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,8 @@ package com.styleru.curry.presentation.presenter.recipe;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import com.styleru.curry.data.models.recipe.Recipe;
+import com.styleru.curry.domain.bookmarks.add.AddOrRemoveBookmarkInteractor;
 import com.styleru.curry.domain.recipe.RecipeInteractor;
 import com.styleru.curry.presentation.view.recipe.RecipeView;
 
@@ -13,12 +15,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RecipePresenter {
 
-    private RecipeInteractor interactor;
+    private AddOrRemoveBookmarkInteractor addOrRemoveBookmarkInteractor;
+    private RecipeInteractor recipeInteractor;
     private RecipeView view;
 
+    private Recipe recipe;
+
     @Inject
-    public RecipePresenter(RecipeInteractor interactor) {
-        this.interactor = interactor;
+    public RecipePresenter(RecipeInteractor recipeInteractor, AddOrRemoveBookmarkInteractor addOrRemoveBookmarkInteractor) {
+        this.recipeInteractor = recipeInteractor;
+        this.addOrRemoveBookmarkInteractor = addOrRemoveBookmarkInteractor;
     }
 
     public void attachView(RecipeView view) {
@@ -27,15 +33,28 @@ public class RecipePresenter {
 
     @SuppressLint("CheckResult")
     public void getRecipeById(int id) {
-        interactor.getRecipeById(id)
+        recipeInteractor.getRecipeById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         recipe -> {
+                            if(recipe.isfRomDb())
+                                view.showFilledIcon();
                             view.passData(recipe);
+                            // Сохраняем сущность, чтобы потом можно было сохранить с БД
+                            this.recipe = recipe;
                         }, throwable -> {
                             Log.d("myLogs", throwable.getMessage());
                             view.showError();
                         });
+    }
+
+    public void saveRecipe(){
+        if(addOrRemoveBookmarkInteractor.saveRecipe(recipe)){
+            view.showFilledIcon();
+        } else {
+            view.showEmptyIcon();
+        }
+
     }
 }

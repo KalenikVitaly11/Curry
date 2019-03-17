@@ -12,16 +12,14 @@ import com.styleru.curry.presentation.view.recipe.pages.InstructionsFragment;
 public class RecipeViewPagerAdapter extends FragmentPagerAdapter {
 
     private static final int PAGE_COUNT = 2;
-    private Recipe recipe;
     private String ingredientsTitle;
     private String instructionsTitle;
 
     private Fragment firstFragment;
     private Fragment secondFragment;
 
-    public RecipeViewPagerAdapter(FragmentManager fm, Fragment firstFragment, Fragment secondFragment,  Recipe recipe, String ingredientsTitle, String instructionsTitle) {
+    public RecipeViewPagerAdapter(FragmentManager fm, Fragment firstFragment, Fragment secondFragment, String ingredientsTitle, String instructionsTitle) {
         super(fm);
-        this.recipe = recipe;
         this.ingredientsTitle = ingredientsTitle;
         this.instructionsTitle = instructionsTitle;
 
@@ -33,9 +31,9 @@ public class RecipeViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return firstFragment;
-            case 1:
                 return secondFragment;
+            case 1:
+                return firstFragment;
         }
         return null;
     }
@@ -50,9 +48,9 @@ public class RecipeViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return ingredientsTitle;
-            case 1:
                 return instructionsTitle;
+            case 1:
+                return ingredientsTitle;
         }
         return "";
     }

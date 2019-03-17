@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/cuisineFragment"
-        android:title="@string/search_recipe"
+        android:title="@string/cuisine_recipes"
         android:icon="@drawable/ic_restaurant_black_24dp" />
     <item
-        android:id="@+id/makeDietFragment"
-        android:title="@string/make_a_diet"
-        android:icon="@drawable/ic_outline_assignment_24px"/>
+        android:id="@+id/searchFragment"
+        android:title="@string/search_recipe"
+        android:icon="@drawable/ic_search_black_24dp"/>
     <item
         android:id="@+id/bookmarksFragment"
         android:title="@string/bookmarks"

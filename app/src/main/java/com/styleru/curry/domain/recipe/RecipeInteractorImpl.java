@@ -1,5 +1,7 @@
 package com.styleru.curry.domain.recipe;
 
+import android.util.Log;
+
 import com.styleru.curry.data.models.recipe.Recipe;
 
 import javax.inject.Inject;

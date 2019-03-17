@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:elevation="10dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="4dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/search_recipe_image"
+            android:layout_width="@dimen/search_item_image_size"
+            android:layout_height="@dimen/search_item_image_size"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_recipe_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxWidth="148dp"
+            android:maxLines="2"
+            android:lines="2"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAlignment="viewStart"
+            app:layout_constraintStart_toStartOf="@id/search_recipe_image"
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_image" />
+
+        <TextView
+            android:id="@+id/search_recipe_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_title"
+            app:layout_constraintStart_toStartOf="@id/search_recipe_title"/>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
