@@ -7,21 +7,23 @@
     android:background="@color/background"
     tools:context=".presentation.view.search.SearchFragment">
 
-    <EditText
+    <android.support.v7.widget.SearchView
         android:id="@+id/search_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_padding"
         android:layout_marginTop="@dimen/default_padding"
         android:layout_marginEnd="@dimen/default_padding"
-        android:hint="@string/what_to_cook"
+        app:defaultQueryHint="@string/what_to_cook"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:maxLines="1"
         android:textSize="@dimen/search_text_size"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:searchIcon="@null" />
 
     <android.support.design.chip.ChipGroup
         android:id="@+id/filters_chip_group"
@@ -30,7 +32,6 @@
         android:layout_marginTop="@dimen/chip_group_margin_top"
         android:paddingStart="@dimen/default_padding"
         android:paddingEnd="@dimen/default_padding"
-
         app:chipSpacing="@dimen/chip_spacing"
         app:layout_constraintEnd_toEndOf="@id/search_edittext"
         app:layout_constraintStart_toStartOf="@id/search_edittext"
@@ -218,9 +219,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:orientation="vertical"
         android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:duration="800"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

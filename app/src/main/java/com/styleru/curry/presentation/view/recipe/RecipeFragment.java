@@ -136,6 +136,7 @@ public class RecipeFragment extends Fragment implements RecipeView, FragmentOnBa
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmerAnimation();
+
     }
 
     /**

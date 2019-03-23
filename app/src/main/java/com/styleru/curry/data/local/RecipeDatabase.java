@@ -1,4 +1,4 @@
-package com.styleru.curry.data.db;
+package com.styleru.curry.data.local;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;

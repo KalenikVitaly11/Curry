@@ -1,6 +1,6 @@
 package com.styleru.curry.data.repositories.bookmarks;
 
-import com.styleru.curry.data.db.dataStore.DbDataStore;
+import com.styleru.curry.data.local.dataStore.DbDataStore;
 import com.styleru.curry.data.models.recipe.Recipe;
 import com.styleru.curry.domain.bookmarks.BookmarksRepository;
 

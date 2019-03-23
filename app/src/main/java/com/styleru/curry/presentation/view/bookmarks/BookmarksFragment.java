@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.styleru.curry.CurryApplication;
 import com.styleru.curry.R;
@@ -18,6 +19,8 @@ import com.styleru.curry.presentation.presenter.bookmarks.BookmarksPresenter;
 import com.styleru.curry.presentation.view.bookmarks.adapter.BookmarksItemDecorator;
 import com.styleru.curry.presentation.view.bookmarks.adapter.BookmarksRecyclerViewAdapter;
 import com.styleru.curry.presentation.view.bookmarks.adapter.RecyclerOnClick;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -30,6 +33,7 @@ public class BookmarksFragment extends Fragment implements BookmarksView, Recycl
 
     private RecyclerView recyclerView;
     private BookmarksRecyclerViewAdapter adapter;
+    private TextView noFavorites;
     public static final String ID_KEY = "recipeId";
 
     @Inject
@@ -56,6 +60,7 @@ public class BookmarksFragment extends Fragment implements BookmarksView, Recycl
 
     private void initViews(View view){
         recyclerView = view.findViewById(R.id.bookmarks_recycler);
+        noFavorites = view.findViewById(R.id.no_favorites);
     }
 
     private void init(){
@@ -68,13 +73,12 @@ public class BookmarksFragment extends Fragment implements BookmarksView, Recycl
 
     @Override
     public void setData(List<Recipe> recipeList) {
+        if(recipeList.isEmpty()){
+            noFavorites.setVisibility(View.VISIBLE);
+            return;
+        }
         adapter = new BookmarksRecyclerViewAdapter(recipeList, this::recyclerOnClick);
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void showError() {
-
     }
 
     @Override

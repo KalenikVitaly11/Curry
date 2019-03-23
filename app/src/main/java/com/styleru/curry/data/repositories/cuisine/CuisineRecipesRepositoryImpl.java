@@ -1,5 +1,6 @@
 package com.styleru.curry.data.repositories.cuisine;
 
+import com.styleru.curry.data.local.CachedCuisineRecipes;
 import com.styleru.curry.data.network.dataStore.WebDataStore;
 import com.styleru.curry.domain.cuisine.CuisineRecipesRepository;
 import com.styleru.curry.domain.cuisine.models.CuisineRecipes;
@@ -14,10 +15,12 @@ import io.reactivex.Single;
 public class CuisineRecipesRepositoryImpl implements CuisineRecipesRepository {
 
     private WebDataStore webDataStore;
+    private CachedCuisineRecipes cachedCuisineRecipes;
 
     @Inject
-    public CuisineRecipesRepositoryImpl(WebDataStore webDataStore){
+    public CuisineRecipesRepositoryImpl(WebDataStore webDataStore, CachedCuisineRecipes cachedCuisineRecipes){
         this.webDataStore = webDataStore;
+        this.cachedCuisineRecipes = cachedCuisineRecipes;
     }
 
     /**
@@ -27,6 +30,13 @@ public class CuisineRecipesRepositoryImpl implements CuisineRecipesRepository {
      */
     @Override
     public Single<CuisineRecipes> getCuisineRecipes(String cuisine) {
-        return webDataStore.getCuisineRecipes(cuisine);
+        CuisineRecipes cachedRecipes = CachedCuisineRecipes.getInstance().getRecipes();
+        if(cachedRecipes != null)
+            return Single.just(cachedRecipes);
+
+        return webDataStore.getCuisineRecipes(cuisine)
+                .doOnSuccess(cuisineRecipes -> {
+                    cachedCuisineRecipes.addRecipes(cuisineRecipes);
+                });
     }
 }

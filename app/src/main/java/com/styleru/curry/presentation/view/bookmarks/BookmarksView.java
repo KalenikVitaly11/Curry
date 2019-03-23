@@ -7,6 +7,4 @@ import java.util.List;
 public interface BookmarksView {
 
     void setData(List<Recipe> recipeList);
-
-    void showError();
 }

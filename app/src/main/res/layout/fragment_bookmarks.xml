@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.view.bookmarks.BookmarksFragment" >
+    android:background="@color/background"
+    tools:context=".presentation.view.bookmarks.BookmarksFragment">
 
 
     <TextView
         android:id="@+id/bookmarks_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Закладки"
         android:layout_marginStart="@dimen/default_padding"
         android:layout_marginTop="@dimen/default_padding"
         android:layout_marginEnd="@dimen/default_padding"
+        android:text="@string/bookmarks"
         android:textSize="@dimen/fragment_title_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/no_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_favorites"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/bookmarks_title"
-        app:layout_constraintTop_toBottomOf="@id/bookmarks_title"/>
+        app:layout_constraintTop_toBottomOf="@id/bookmarks_title" />
 
 
 </android.support.constraint.ConstraintLayout>

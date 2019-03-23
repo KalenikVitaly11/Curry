@@ -1,4 +1,4 @@
-package com.styleru.curry.data.db.dataStore;
+package com.styleru.curry.data.local.dataStore;
 
 import com.styleru.curry.data.models.recipe.Recipe;
 

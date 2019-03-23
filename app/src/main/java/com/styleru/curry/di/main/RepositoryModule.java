@@ -1,6 +1,7 @@
 package com.styleru.curry.di.main;
 
-import com.styleru.curry.data.db.dataStore.DbDataStore;
+import com.styleru.curry.data.local.CachedCuisineRecipes;
+import com.styleru.curry.data.local.dataStore.DbDataStore;
 import com.styleru.curry.data.network.dataStore.WebDataStore;
 import com.styleru.curry.data.repositories.bookmarks.BookmarksRepositoryImpl;
 import com.styleru.curry.data.repositories.cuisine.CuisineRecipesRepositoryImpl;
@@ -28,7 +29,7 @@ public class RepositoryModule {
     @Provides
     @Singleton
     public CuisineRecipesRepository provideCuisineRecipesRepository(WebDataStore webDataStore){
-        return new CuisineRecipesRepositoryImpl(webDataStore);
+        return new CuisineRecipesRepositoryImpl(webDataStore, CachedCuisineRecipes.getInstance());
     }
 
     @Provides

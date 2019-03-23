@@ -1,8 +1,8 @@
 package com.styleru.curry.di.main;
 
 import com.styleru.curry.CurryApplication;
-import com.styleru.curry.data.db.dataStore.DbDataStore;
-import com.styleru.curry.data.db.dataStore.DbDataStoreImpl;
+import com.styleru.curry.data.local.dataStore.DbDataStore;
+import com.styleru.curry.data.local.dataStore.DbDataStoreImpl;
 import com.styleru.curry.data.network.api.CurryWebHelper;
 import com.styleru.curry.data.network.dataStore.WebDataStore;
 import com.styleru.curry.data.network.dataStore.WebDataStoreImpl;

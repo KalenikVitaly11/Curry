@@ -3,7 +3,7 @@ package com.styleru.curry;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
-import com.styleru.curry.data.db.RecipeDatabase;
+import com.styleru.curry.data.local.RecipeDatabase;
 import com.styleru.curry.di.bookmarks.BookmarksComponent;
 import com.styleru.curry.di.bookmarks.BookmarksModule;
 import com.styleru.curry.di.cuisine.CuisineComponent;

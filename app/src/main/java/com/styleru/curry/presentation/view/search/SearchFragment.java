@@ -38,7 +38,7 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
 
     @Inject
     protected SearchPresenter presenter;
-    private EditText searchEditText;
+    private android.support.v7.widget.SearchView searchEditText;
 
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter adapter;
@@ -120,26 +120,16 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
 
     private void initListeners() {
         // Лисенер нажатия кнопки поиска на клавиатуре
-        searchEditText.setOnEditorActionListener((editText, actionId, event) -> {
-            int dietId = dietChipGroup.getCheckedChipId();
-            int cuisineId = cuisineChipGroup.getCheckedChipId();
-
-            // Если есть выбранные чипсы, то ставим показываем чипсы в поиске и закидываем туда текст,
-            // а чипсы-фильтры очищаем
-            if (dietId != -1) {
-                dietFilter = ((Chip) getView().findViewById(dietId)).getText().toString();
-                dietChip.setVisibility(View.VISIBLE);
-                dietChipGroup.clearCheck();
+        searchEditText.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
             }
 
-            if (cuisineId != -1) {
-                cuisineFilter = ((Chip) getView().findViewById(cuisineChipGroup.getCheckedChipId())).getText().toString();
-                cuisineChip.setVisibility(View.VISIBLE);
-                cuisineChipGroup.clearCheck();
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
-
-            search();
-            return true;
         });
 
         // Лисенер нажатия крестика на чипсе
@@ -210,7 +200,7 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         shimmerFrameLayout.stopShimmerAnimation();
 
         adapter.clear();
-        searchEditText.setText("");
+//        searchEditText.setText("");
         ifFilterMode = true;
     }
 
@@ -235,7 +225,7 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
      * Поиск нужного рецепта
      */
     private void search() {
-        presenter.searchRecipes(searchEditText.getText().toString(), cuisineFilter, dietFilter, "");
+//        presenter.searchRecipes(searchEditText.getText().toString(), cuisineFilter, dietFilter, "");
         searchMode();
     }
 
