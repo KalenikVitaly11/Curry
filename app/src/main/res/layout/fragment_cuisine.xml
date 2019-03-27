@@ -72,7 +72,7 @@
         <TextView
             android:id="@+id/search_recipe_first_title"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="@dimen/cuisine_title_height"
             android:textSize="@dimen/recycler_title_text"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/search_recipe_title"
@@ -81,20 +81,18 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cuisine_recipes_one"
             android:layout_width="wrap_content"
-            android:layout_height="152dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/cuisine_recycler_height"
+            android:layout_marginTop="@dimen/cuisine_recycler_mar_top"
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_recipe_first_title"
-            tools:itemCount="10"
-            tools:listitem="@layout/cuisine_item" />
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_first_title" />
 
         <TextView
             android:id="@+id/search_recipe_second_title"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="@dimen/cuisine_title_height"
             android:layout_marginTop="4dp"
             android:textSize="@dimen/recycler_title_text"
             android:visibility="gone"
@@ -104,20 +102,18 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cuisine_recipes_two"
             android:layout_width="match_parent"
-            android:layout_height="152dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/cuisine_recycler_height"
+            android:layout_marginTop="@dimen/cuisine_recycler_mar_top"
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_recipe_second_title"
-            tools:itemCount="10"
-            tools:listitem="@layout/cuisine_item" />
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_second_title" />
 
         <TextView
             android:id="@+id/search_recipe_third_title"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="@dimen/cuisine_title_height"
             android:layout_marginTop="4dp"
             android:textSize="@dimen/recycler_title_text"
             android:visibility="gone"
@@ -127,15 +123,13 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cuisine_recipes_three"
             android:layout_width="match_parent"
-            android:layout_height="152dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/cuisine_recycler_height"
+            android:layout_marginTop="@dimen/cuisine_recycler_mar_top"
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_recipe_third_title"
-            tools:itemCount="10"
-            tools:listitem="@layout/cuisine_item" />
+            app:layout_constraintTop_toBottomOf="@id/search_recipe_third_title" />
 
         <TextView
             android:id="@+id/cuisine_check_internet"

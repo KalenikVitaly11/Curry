@@ -34,6 +34,11 @@ public class CuisineRecipesInteractorImpl implements CuisineRecipesInteractor {
         return recipesRepository.getCuisineRecipes(getCuisine());
     }
 
+    @Override
+    public void cacheCuisineRecipes(CuisineRecipes cuisineRecipes) {
+        recipesRepository.cacheCuisineRecipes(cuisineRecipes);
+    }
+
 
     /**
      * Метод для получения рандомной кухни из списка

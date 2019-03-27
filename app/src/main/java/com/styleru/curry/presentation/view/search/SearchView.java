@@ -7,4 +7,10 @@ public interface SearchView {
     void setData(RecipeResponse recipeResponse);
 
     void showError();
+
+    void searchMode(String dietFilter, String cuisineFilter);
+
+    void filterMode();
+
+    boolean onBackPressed();
 }

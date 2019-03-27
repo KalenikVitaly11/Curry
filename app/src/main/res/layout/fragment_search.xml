@@ -7,23 +7,22 @@
     android:background="@color/background"
     tools:context=".presentation.view.search.SearchFragment">
 
-    <android.support.v7.widget.SearchView
+    <EditText
         android:id="@+id/search_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_padding"
         android:layout_marginTop="@dimen/default_padding"
         android:layout_marginEnd="@dimen/default_padding"
-        app:defaultQueryHint="@string/what_to_cook"
-        android:imeOptions="actionSearch"
+        android:hint="@string/what_to_cook"
+        android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLines="1"
+        android:backgroundTint="@color/search_underline_color"
         android:textSize="@dimen/search_text_size"
-        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:searchIcon="@null" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.chip.ChipGroup
         android:id="@+id/filters_chip_group"
@@ -58,7 +57,7 @@
         android:id="@+id/search_diet_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Diet"
+        android:text="@string/diet_title"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@id/search_edittext"
         app:layout_constraintTop_toBottomOf="@id/search_edittext" />
@@ -92,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Cuisine"
+        android:text="@string/cuisine_title"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@id/search_edittext"
         app:layout_constraintTop_toBottomOf="@id/diet_chip_group" />
@@ -192,12 +191,6 @@
             android:layout_height="wrap_content"
             android:text="@string/mexican" />
 
-        <!--Да, это костыль, но по-другому работать не хотело. Почему то кусок последней чипсы обрезается. А так обрезается кусок невидимой чипсы-->
-        <android.support.design.chip.Chip
-            style="@style/MyChipStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
 
 
     </android.support.design.chip.ChipGroup>
@@ -211,7 +204,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@id/filters_chip_group" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -226,7 +218,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@id/filters_chip_group">
 
         <include layout="@layout/search_shimmer_layout" />

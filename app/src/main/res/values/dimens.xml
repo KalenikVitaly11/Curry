@@ -9,12 +9,19 @@
     <dimen name="chip_text_size">16sp</dimen>
     <dimen name="chip_spacing">8dp</dimen>
     <dimen name="chip_group_margin_top">12dp</dimen>
-    <dimen name="search_text_size">26sp</dimen>
+    <dimen name="search_text_size">20sp</dimen>
     <dimen name="tab_layout_height">56dp</dimen>
     <dimen name="recipe_image_size">256dp</dimen>
     <dimen name="recipe_item_image_size">112dp</dimen>
-    <dimen name="search_item_image_size">172dp</dimen>
+    <dimen name="search_item_image_size">184dp</dimen>
     <dimen name="instructions_item_margin">12dp</dimen>
     <dimen name="cuisine_shimmer_name_width">96dp</dimen>
     <dimen name="cuisine_shimmer_name_height">32dp</dimen>
+    <dimen name="cuisine_title_height">28dp</dimen>
+    <dimen name="cuisine_recycler_height">152dp</dimen>
+    <dimen name="cuisine_recycler_mar_top">16dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="shimmer_time_serv_width">96dp</dimen>
+    <dimen name="shimmer_time_serv_height">32dp</dimen>
+    <dimen name="shimmer_cuisine_title_mar">8dp</dimen>
 </resources>

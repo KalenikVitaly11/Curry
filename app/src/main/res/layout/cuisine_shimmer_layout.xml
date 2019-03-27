@@ -8,7 +8,7 @@
         android:id="@+id/recipe_shimmmer_title"
         android:layout_width="172dp"
         android:layout_height="28dp"
-        android:background="#dddddd"
+        android:background="@color/shimmer_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -17,7 +17,7 @@
         android:layout_width="@dimen/recipe_item_image_size"
         android:layout_height="@dimen/recipe_item_image_size"
         android:layout_marginTop="12dp"
-        android:background="#dddddd"
+        android:background="@color/shimmer_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recipe_shimmmer_title" />
 
@@ -25,10 +25,10 @@
         android:id="@+id/recipe_shimmmer_title_1"
         android:layout_width="@dimen/recipe_item_image_size"
         android:layout_height="@dimen/cuisine_shimmer_name_height"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#dddddd"
+        android:layout_marginStart="@dimen/shimmer_cuisine_title_mar"
+        android:layout_marginTop="@color/shimmer_color"
+        android:layout_marginEnd="@color/shimmer_color"
+        android:background="@color/shimmer_color"
         app:layout_constraintEnd_toEndOf="@id/recipe_shimmmer_image_1"
         app:layout_constraintStart_toStartOf="@id/recipe_shimmmer_image_1"
         app:layout_constraintTop_toBottomOf="@id/recipe_shimmmer_image_1" />
@@ -37,8 +37,8 @@
         android:id="@+id/recipe_shimmmer_image_2"
         android:layout_width="@dimen/recipe_item_image_size"
         android:layout_height="@dimen/recipe_item_image_size"
-        android:layout_marginStart="8dp"
-        android:background="#dddddd"
+        android:layout_marginStart="@color/shimmer_color"
+        android:background="@color/shimmer_color"
         app:layout_constraintStart_toEndOf="@id/recipe_shimmmer_image_1"
         app:layout_constraintTop_toTopOf="@id/recipe_shimmmer_image_1" />
 
@@ -46,10 +46,10 @@
         android:id="@+id/recipe_shimmmer_title_2"
         android:layout_width="@dimen/recipe_item_image_size"
         android:layout_height="@dimen/cuisine_shimmer_name_height"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#dddddd"
+        android:layout_marginStart="@color/shimmer_color"
+        android:layout_marginTop="@color/shimmer_color"
+        android:layout_marginEnd="@color/shimmer_color"
+        android:background="@color/shimmer_color"
         app:layout_constraintEnd_toEndOf="@id/recipe_shimmmer_image_2"
         app:layout_constraintStart_toStartOf="@id/recipe_shimmmer_image_2"
         app:layout_constraintTop_toBottomOf="@id/recipe_shimmmer_image_2" />
@@ -58,8 +58,8 @@
         android:id="@+id/recipe_shimmmer_image_3"
         android:layout_width="@dimen/recipe_item_image_size"
         android:layout_height="@dimen/recipe_item_image_size"
-        android:layout_marginStart="8dp"
-        android:background="#dddddd"
+        android:layout_marginStart="@color/shimmer_color"
+        android:background="@color/shimmer_color"
         app:layout_constraintStart_toEndOf="@id/recipe_shimmmer_image_2"
         app:layout_constraintTop_toTopOf="@id/recipe_shimmmer_image_2" />
 
@@ -67,10 +67,10 @@
         android:id="@+id/recipe_shimmmer_title_3"
         android:layout_width="@dimen/recipe_item_image_size"
         android:layout_height="@dimen/cuisine_shimmer_name_height"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#dddddd"
+        android:layout_marginStart="@color/shimmer_color"
+        android:layout_marginTop="@color/shimmer_color"
+        android:layout_marginEnd="@color/shimmer_color"
+        android:background="@color/shimmer_color"
         app:layout_constraintEnd_toEndOf="@id/recipe_shimmmer_image_3"
         app:layout_constraintStart_toStartOf="@id/recipe_shimmmer_image_3"
         app:layout_constraintTop_toBottomOf="@id/recipe_shimmmer_image_3" />

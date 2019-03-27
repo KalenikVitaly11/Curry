@@ -3,6 +3,7 @@ package com.styleru.curry.presentation.presenter.recipe;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import com.styleru.curry.CurryApplication;
 import com.styleru.curry.data.models.recipe.Recipe;
 import com.styleru.curry.domain.bookmarks.add.AddOrRemoveBookmarkInteractor;
 import com.styleru.curry.domain.recipe.RecipeInteractor;
@@ -38,9 +39,16 @@ public class RecipePresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         recipe -> {
+                            // Если инфа из БД, то показываем закрашенную иконку в FAB
                             if(recipe.isfRomDb())
                                 view.showFilledIcon();
-                            view.passData(recipe);
+
+                            view.setDataToViews(recipe);
+                            view.initViewPager(recipe);
+                            view.showViews();
+                            // Если установить лисенер раньше, то по какой то причине BottomSheet открывается, так что вызов метода здесь
+                            view.initListeners();
+
                             // Сохраняем сущность, чтобы потом можно было сохранить с БД
                             this.recipe = recipe;
                         }, throwable -> {
@@ -49,12 +57,11 @@ public class RecipePresenter {
                         });
     }
 
-    public void saveRecipe(){
+    public void floatingButtonCLicked(){
         if(addOrRemoveBookmarkInteractor.saveRecipe(recipe)){
             view.showFilledIcon();
         } else {
             view.showEmptyIcon();
         }
-
     }
 }

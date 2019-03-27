@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)
                 .getChildFragmentManager().getFragments().get(0);
 
-
         if(!(fragment instanceof FragmentOnBackPressedListener) || !((FragmentOnBackPressedListener) fragment).onBackPressed() ){
             super.onBackPressed();
         }

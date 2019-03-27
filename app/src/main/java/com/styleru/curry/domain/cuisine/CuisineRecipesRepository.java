@@ -10,4 +10,11 @@ public interface CuisineRecipesRepository {
      * @return Ответ с сервера или кэш из БД в случае ошибки
      */
     Single<CuisineRecipes> getCuisineRecipes(String cuisine);
+
+
+    /**
+     * Метод для сохранения рецептов в сиглтон
+     * @param cuisineRecipes Объект с рецептами
+     */
+    void cacheCuisineRecipes(CuisineRecipes cuisineRecipes);
 }

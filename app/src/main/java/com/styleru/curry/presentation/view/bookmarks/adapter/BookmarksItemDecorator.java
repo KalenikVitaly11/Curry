@@ -16,18 +16,18 @@ public class BookmarksItemDecorator extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        int position = parent.getChildAdapterPosition(view); // item position
-        int column = position % spanCount; // item column
+        int position = parent.getChildAdapterPosition(view); // Позиция элемента
+        int column = position % spanCount; // Колонка элемента
 
-        outRect.left = space - column * space / spanCount; // space - column * ((1f / spanCount) * space)
-        outRect.right = (column + 1) * space / spanCount; // (column + 1) * ((1f / spanCount) * space)
+        outRect.left = space - column * space / spanCount;
+        outRect.right = (column + 1) * space / spanCount;
 
-        if (position < spanCount) { // top edge
+        if (position < spanCount) { // Верх всех элементов кроме первого ряда
             outRect.top = space;
         }
-        outRect.bottom = space; // item bottom
+        outRect.bottom = space; // Низ
         if (parent.getChildLayoutPosition(view) == parent.getChildCount()) {
-            outRect.bottom = 100; // item bottom
+            outRect.bottom = 100; // Низ для последнего элемента
         }
     }
 }

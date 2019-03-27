@@ -38,6 +38,13 @@ public class CuisinePresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         cuisineRecipes -> {
+                            // Кэшируем
+                            cuisineRecipesInteractor.cacheCuisineRecipes(cuisineRecipes);
+
+                            // Меняем текст заголовка
+                            cuisineRecipes.setCuisine(formatTitle(cuisineRecipes.getCuisine()));
+
+                            // Передаем во вью
                             switch (listNumber) {
                                 case CuisineFragment.RECYCLER_ONE:
                                     view.setDataOne(cuisineRecipes);
@@ -54,5 +61,11 @@ public class CuisinePresenter {
                         }, throwable -> {
                             view.showError();
                         });
+    }
+
+    // Меняем первую букву на заглавную и добавляем слово "кухня"
+    private String formatTitle(String title) {
+        title = title.substring(0, 1).toUpperCase() + title.substring(1) + " cuisine";
+        return title;
     }
 }

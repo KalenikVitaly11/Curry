@@ -38,7 +38,7 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
 
     @Inject
     protected SearchPresenter presenter;
-    private android.support.v7.widget.SearchView searchEditText;
+    private EditText searchEditText;
 
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter adapter;
@@ -51,13 +51,8 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
     private TextView cuisineTitle;
     private ShimmerFrameLayout shimmerFrameLayout;
 
-    private String dietFilter = "";
-    private String cuisineFilter = "";
-
-    private boolean ifFilterMode = true;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
@@ -77,26 +72,8 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         CurryApplication.clearSearchComponent();
     }
 
-    @Override
-    public void setData(RecipeResponse recipeResponse) {
-        adapter.updateData(recipeResponse.getRecipeList());
-        shimmerFrameLayout.setVisibility(View.GONE);
-        shimmerFrameLayout.stopShimmerAnimation();
-    }
-
-    /**
-     * Показываем ошибку
-     */
-    @Override
-    public void showError() {
-        Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_LONG).show();
-        shimmerFrameLayout.setVisibility(View.GONE);
-        shimmerFrameLayout.stopShimmerAnimation();
-    }
-
     /**
      * Обрабатываем нажатие на элемент ресайклера
-     *
      * @param id id рецепта, на который нажали
      */
     @Override
@@ -120,22 +97,33 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
 
     private void initListeners() {
         // Лисенер нажатия кнопки поиска на клавиатуре
-        searchEditText.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
+        searchEditText.setOnEditorActionListener((editText, actionId, event) -> {
+            int dietId = dietChipGroup.getCheckedChipId();
+            int cuisineId = cuisineChipGroup.getCheckedChipId();
+
+            // Если есть выбранные чипсы, то ставим показываем чипсы в поиске и закидываем туда текст,
+            // а чипсы-фильтры очищаем
+            if (dietId != -1) {
+                presenter.setDietFilter(((Chip) getView().findViewById(dietId)).getText().toString());
+                dietChip.setVisibility(View.VISIBLE);
+                dietChipGroup.clearCheck();
             }
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
+            if (cuisineId != -1) {
+                presenter.setCuisineFilter(((Chip) getView().findViewById(cuisineChipGroup.getCheckedChipId())).getText().toString());
+                cuisineChip.setVisibility(View.VISIBLE);
+                cuisineChipGroup.clearCheck();
             }
+
+            presenter.searchRecipes(searchEditText.getText().toString(), "");
+            searchEditText.clearFocus();
+            return false;
         });
 
         // Лисенер нажатия крестика на чипсе
         dietChip.setOnCloseIconClickListener(chip -> {
             dietChip.setText("");
-            dietFilter = "";
+            presenter.setDietFilter("");
             dietChip.setVisibility(View.GONE);
 
             // Если обе чипсы закрыты, показываем фильтры
@@ -147,7 +135,7 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         // Лисенер нажатия крестика на чипсе
         cuisineChip.setOnCloseIconClickListener(chip -> {
             cuisineChip.setText("");
-            cuisineFilter = "";
+            presenter.setCuisineFilter("");
             cuisineChip.setVisibility(View.GONE);
 
             // Если обе чипсы закрыты, показываем фильтры
@@ -185,10 +173,28 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    @Override
+    public void setData(RecipeResponse recipeResponse) {
+        adapter.updateData(recipeResponse.getRecipeList());
+        shimmerFrameLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.stopShimmerAnimation();
+    }
+
+    /**
+     * Показываем ошибку
+     */
+    @Override
+    public void showError() {
+        Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_LONG).show();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.stopShimmerAnimation();
+    }
+
     /**
      * Показываем фильтры и очищаем ресайклер
      */
-    private void filterMode() {
+    @Override
+    public void filterMode() {
         dietChipGroup.setVisibility(View.VISIBLE);
         cuisineChipGroup.setVisibility(View.VISIBLE);
         dietTitle.setVisibility(View.VISIBLE);
@@ -200,14 +206,14 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         shimmerFrameLayout.stopShimmerAnimation();
 
         adapter.clear();
-//        searchEditText.setText("");
-        ifFilterMode = true;
+        searchEditText.setText("");
     }
 
     /**
      * Прячем фильтры
      */
-    private void searchMode() {
+    @Override
+    public void searchMode(String dietFilter, String cuisineFilter) {
         recyclerView.setVisibility(View.VISIBLE);
         dietChip.setText(dietFilter);
         cuisineChip.setText(cuisineFilter);
@@ -218,31 +224,15 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
         recyclerView.setVisibility(View.VISIBLE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmerAnimation();
-        ifFilterMode = false;
     }
 
     /**
-     * Поиск нужного рецепта
-     */
-    private void search() {
-//        presenter.searchRecipes(searchEditText.getText().toString(), cuisineFilter, dietFilter, "");
-        searchMode();
-    }
-
-    /**
-     * Обрабатываем нажатие кнопки "назад"
-     *
-     * @return true если обработали нажатие
-     * false если не обработали
+     * Обрабатываем нажатие кнопки "назад" с помощью коллбека
+     * @return true если обработали
+     *         false если не обработали
      */
     @Override
     public boolean onBackPressed() {
-        // Если в режиме поиска, то переходим в режим фильтров
-        if (!ifFilterMode) {
-            filterMode();
-            return true;
-        }
-
-        return false;
+        return presenter.onBackPressed();
     }
 }

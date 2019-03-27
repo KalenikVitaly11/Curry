@@ -63,9 +63,9 @@ public class BookmarksRecyclerViewAdapter  extends RecyclerView.Adapter<Bookmark
         public BookmarksViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.search_recipe_title);
-            time = itemView.findViewById(R.id.search_recipe_time);
-            imageView = itemView.findViewById(R.id.search_recipe_image);
+            title = itemView.findViewById(R.id.bookmarks_recipe_title);
+            time = itemView.findViewById(R.id.bookmarks_recipe_time);
+            imageView = itemView.findViewById(R.id.bookmarks_recipe_image);
         }
     }
 }

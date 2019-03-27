@@ -7,7 +7,6 @@
     android:background="@color/background"
     tools:context=".presentation.view.bookmarks.BookmarksFragment">
 
-
     <TextView
         android:id="@+id/bookmarks_title"
         android:layout_width="wrap_content"
@@ -32,7 +31,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bookmarks_recycler"

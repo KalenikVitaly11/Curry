@@ -9,7 +9,7 @@
         android:layout_width="@dimen/recipe_image_size"
         android:layout_height="44dp"
         android:layout_marginTop="12dp"
-        android:background="#dddddd"
+        android:background="@color/shimmer_color"
         app:layout_constraintBottom_toTopOf="@id/recipe_shimmer_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         android:layout_width="@dimen/recipe_image_size"
         android:layout_height="@dimen/recipe_image_size"
         android:layout_marginBottom="@dimen/tab_layout_height"
-        android:background="#dddddd"
+        android:background="@color/shimmer_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,21 +28,21 @@
 
     <View
         android:id="@+id/recipe_shimmer_servings"
-        android:layout_width="96dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/shimmer_time_serv_width"
+        android:layout_height="@dimen/shimmer_time_serv_height"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="#dddddd"
+        android:background="@color/shimmer_color"
         app:layout_constraintStart_toStartOf="@id/recipe_shimmer_image"
         app:layout_constraintTop_toBottomOf="@id/recipe_shimmer_image" />
 
     <View
         android:id="@+id/recipe_shimmer_time"
-        android:layout_width="96dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/shimmer_time_serv_width"
+        android:layout_height="@dimen/shimmer_time_serv_height"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="#dddddd"
+        android:background="@color/shimmer_color"
         app:layout_constraintEnd_toEndOf="@id/recipe_shimmer_image"
         app:layout_constraintTop_toBottomOf="@id/recipe_shimmer_image" />
 </android.support.constraint.ConstraintLayout>

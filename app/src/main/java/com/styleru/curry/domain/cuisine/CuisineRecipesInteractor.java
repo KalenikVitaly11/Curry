@@ -10,4 +10,10 @@ public interface CuisineRecipesInteractor {
      * Метод для получения рецептов определенной кухни (используется на главном экране)
      */
     Single<CuisineRecipes> getCuisineRecipes();
+
+    /**
+     * Метод для сохранения рецептов в сиглтон
+     * @param cuisineRecipes Объект с рецептами
+     */
+    void cacheCuisineRecipes(CuisineRecipes cuisineRecipes);
 }

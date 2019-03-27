@@ -28,7 +28,6 @@ import javax.inject.Inject;
 
 import androidx.navigation.Navigation;
 
-
 public class BookmarksFragment extends Fragment implements BookmarksView, RecyclerOnClick {
 
     private RecyclerView recyclerView;
@@ -65,20 +64,22 @@ public class BookmarksFragment extends Fragment implements BookmarksView, Recycl
 
     private void init(){
         CurryApplication.addBookmarksComponent().inject(this);
-        presenter.attachView(this);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.addItemDecoration(new BookmarksItemDecorator(2, 20));
+
+        presenter.attachView(this);
         presenter.getBookmarks();
     }
 
     @Override
     public void setData(List<Recipe> recipeList) {
-        if(recipeList.isEmpty()){
-            noFavorites.setVisibility(View.VISIBLE);
-            return;
-        }
-        adapter = new BookmarksRecyclerViewAdapter(recipeList, this::recyclerOnClick);
+        adapter = new BookmarksRecyclerViewAdapter(recipeList, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showOnEmptyList() {
+        noFavorites.setVisibility(View.VISIBLE);
     }
 
     @Override

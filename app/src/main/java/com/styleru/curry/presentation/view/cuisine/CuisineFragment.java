@@ -85,6 +85,7 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
         shimmerFrameLayout1 = view.findViewById(R.id.cuisine_shimmer_1);
         shimmerFrameLayout2 = view.findViewById(R.id.cuisine_shimmer_2);
         shimmerFrameLayout3 = view.findViewById(R.id.cuisine_shimmer_3);
+
         shimmerFrameLayout1.startShimmerAnimation();
         shimmerFrameLayout2.startShimmerAnimation();
         shimmerFrameLayout3.startShimmerAnimation();
@@ -134,9 +135,10 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     @Override
     public void setDataOne(CuisineRecipes cuisineRecipes) {
         cuisineTitleOne.setVisibility(View.VISIBLE);
-        cuisineTitleOne.setText(formatTitle(cuisineRecipes.getCuisine()));
+        cuisineTitleOne.setText(cuisineRecipes.getCuisine());
         shimmerFrameLayout1.stopShimmerAnimation();
         shimmerFrameLayout1.setVisibility(View.INVISIBLE);
+
         adapterOne.updateData(cuisineRecipes.getShortRecipes());
     }
 
@@ -148,9 +150,10 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     @Override
     public void setDataTwo(CuisineRecipes cuisineRecipes) {
         cuisineTitleTwo.setVisibility(View.VISIBLE);
-        cuisineTitleTwo.setText(formatTitle(cuisineRecipes.getCuisine()));
+        cuisineTitleTwo.setText(cuisineRecipes.getCuisine());
         shimmerFrameLayout2.stopShimmerAnimation();
         shimmerFrameLayout2.setVisibility(View.INVISIBLE);
+
         adapterTwo.updateData(cuisineRecipes.getShortRecipes());
     }
 
@@ -162,9 +165,10 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     @Override
     public void setDataThree(CuisineRecipes cuisineRecipes) {
         cuisineTitleThree.setVisibility(View.VISIBLE);
-        cuisineTitleThree.setText(formatTitle(cuisineRecipes.getCuisine()));
+        cuisineTitleThree.setText(cuisineRecipes.getCuisine());
         shimmerFrameLayout3.stopShimmerAnimation();
         shimmerFrameLayout3.setVisibility(View.INVISIBLE);
+
         adapterThree.updateData(cuisineRecipes.getShortRecipes());
     }
 
@@ -175,19 +179,13 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     public void showError() {
         Toast.makeText(getContext(), getResources().getText(R.string.error), Toast.LENGTH_SHORT).show();
         checkInternet.setVisibility(View.VISIBLE);
+
         shimmerFrameLayout1.stopShimmerAnimation();
         shimmerFrameLayout2.stopShimmerAnimation();
         shimmerFrameLayout3.stopShimmerAnimation();
+
         shimmerFrameLayout1.setVisibility(View.INVISIBLE);
         shimmerFrameLayout2.setVisibility(View.INVISIBLE);
         shimmerFrameLayout3.setVisibility(View.INVISIBLE);
     }
-
-
-    // Меняем первую букву на заглавную и добавляем слово "кухня"
-    private String formatTitle(String title) {
-        title = title.substring(0, 1).toUpperCase() + title.substring(1) + " cuisine";
-        return title;
-    }
-
 }

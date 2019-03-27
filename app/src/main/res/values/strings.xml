@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Curry</string>
+
+    <!--Изначально приложение должно было называться "Карри" и иметь соответствующие оранжевые цвета,
+    но цвета мне не понравились, поэтому приложение называется "Тимьян" и оформлена в зеленом цвете.-->
+    <string name="app_name">Thyme</string>
 
     <string name="search_recipe">Search</string>
     <string name="cuisine_recipes">Random</string>
@@ -39,6 +42,10 @@
     <string name="servings">%1$d servings</string>
     <string name="serving">%1$d serving</string>
     <string name="time">%1$d min</string>
+    <string name="cuisine_title">Cuisine</string>
+    <string name="diet_title">Diet</string>
+    <string name="plus">+</string>
+    <string name="recipe_image">Recipe image</string>
 
 
 </resources>

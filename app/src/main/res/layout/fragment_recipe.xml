@@ -45,7 +45,7 @@
             android:layout_width="@dimen/recipe_image_size"
             android:layout_height="@dimen/recipe_image_size"
             android:adjustViewBounds="true"
-            android:background="#000000"
+            android:background="@color/shimmer_color"
             android:scaleType="centerCrop"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,13 +94,13 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/recipe_fab"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_favorite_border_black_24dp"
             android:visibility="gone"
-            app:fabCustomSize="56dp"
+            app:fabCustomSize="@dimen/fab_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>

@@ -34,9 +34,11 @@ public class CuisineRecipesRepositoryImpl implements CuisineRecipesRepository {
         if(cachedRecipes != null)
             return Single.just(cachedRecipes);
 
-        return webDataStore.getCuisineRecipes(cuisine)
-                .doOnSuccess(cuisineRecipes -> {
-                    cachedCuisineRecipes.addRecipes(cuisineRecipes);
-                });
+        return webDataStore.getCuisineRecipes(cuisine);
+    }
+
+    @Override
+    public void cacheCuisineRecipes(CuisineRecipes cuisineRecipes){
+        cachedCuisineRecipes.addRecipes(cuisineRecipes);
     }
 }
