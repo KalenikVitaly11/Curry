@@ -21,6 +21,12 @@ public class CuisineRecipes {
         this.cuisine = cuisine;
     }
 
+    public CuisineRecipes(CuisineRecipes cuisineRecipes){
+        this.shortRecipes = new ArrayList<>();
+        this.shortRecipes.addAll(cuisineRecipes.getShortRecipes());
+        this.cuisine = cuisineRecipes.getCuisine();
+    }
+
     public List<ShortRecipe> getShortRecipes() {
         return shortRecipes;
     }

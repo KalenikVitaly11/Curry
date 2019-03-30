@@ -65,7 +65,7 @@ public class CuisinePresenter {
 
     // Меняем первую букву на заглавную и добавляем слово "кухня"
     private String formatTitle(String title) {
-        title = title.substring(0, 1).toUpperCase() + title.substring(1) + " cuisine";
+        title = title.substring(0, 1).toUpperCase()  + title.substring(1);
         return title;
     }
 }

@@ -135,7 +135,7 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
     @Override
     public void setDataOne(CuisineRecipes cuisineRecipes) {
         cuisineTitleOne.setVisibility(View.VISIBLE);
-        cuisineTitleOne.setText(cuisineRecipes.getCuisine());
+        cuisineTitleOne.setText(getContext().getString(R.string.cuisine, cuisineRecipes.getCuisine()));
         shimmerFrameLayout1.stopShimmerAnimation();
         shimmerFrameLayout1.setVisibility(View.INVISIBLE);
 
@@ -149,8 +149,8 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
      */
     @Override
     public void setDataTwo(CuisineRecipes cuisineRecipes) {
-        cuisineTitleTwo.setVisibility(View.VISIBLE);
-        cuisineTitleTwo.setText(cuisineRecipes.getCuisine());
+        cuisineTitleTwo.setVisibility(View.VISIBLE);;
+        cuisineTitleTwo.setText(getContext().getString(R.string.cuisine, cuisineRecipes.getCuisine()));
         shimmerFrameLayout2.stopShimmerAnimation();
         shimmerFrameLayout2.setVisibility(View.INVISIBLE);
 
@@ -164,8 +164,8 @@ public class CuisineFragment extends Fragment implements CuisineRecyclerOnClick,
      */
     @Override
     public void setDataThree(CuisineRecipes cuisineRecipes) {
-        cuisineTitleThree.setVisibility(View.VISIBLE);
-        cuisineTitleThree.setText(cuisineRecipes.getCuisine());
+        cuisineTitleThree.setVisibility(View.VISIBLE);;
+        cuisineTitleThree.setText(getContext().getString(R.string.cuisine, cuisineRecipes.getCuisine()));
         shimmerFrameLayout3.stopShimmerAnimation();
         shimmerFrameLayout3.setVisibility(View.INVISIBLE);
 

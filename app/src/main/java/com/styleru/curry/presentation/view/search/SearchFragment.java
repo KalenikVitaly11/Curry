@@ -34,6 +34,10 @@ import androidx.navigation.Navigation;
 
 import static com.styleru.curry.presentation.view.recipe.RecipeFragment.ID_KEY;
 
+
+/**
+ * Фрагмент с поиском
+ */
 public class SearchFragment extends Fragment implements SearchView, SearchRecyclerOnClick, FragmentOnBackPressedListener {
 
     @Inject

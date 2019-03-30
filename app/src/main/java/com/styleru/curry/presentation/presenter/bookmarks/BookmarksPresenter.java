@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class BookmarksPresenter {
 
     private BookmarksView view;
@@ -23,13 +26,18 @@ public class BookmarksPresenter {
     }
 
     public void getBookmarks() {
-        List<Recipe> list = interactor.getRecipes();
+        interactor.getRecipes()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(recipes -> {
+                    if (recipes.isEmpty()) {
+                        view.showOnEmptyList();
+                    } else {
+                        view.setData(recipes);
+                    }
+                }, throwable -> {
+                        view.showError();
+                });
 
-        if (list.isEmpty()) {
-            view.showOnEmptyList();
-        } else {
-            view.setData(list);
-        }
     }
-
 }

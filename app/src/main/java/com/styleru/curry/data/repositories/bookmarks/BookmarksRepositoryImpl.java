@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
+
 public class BookmarksRepositoryImpl implements BookmarksRepository {
 
     private DbDataStore dbDataStore;
@@ -28,8 +30,8 @@ public class BookmarksRepositoryImpl implements BookmarksRepository {
     }
 
     @Override
-    public List<Recipe> getRecipes() {
-        return dbDataStore.getRecipes();
+    public Single<List<Recipe>> getRecipes() {
+        return Single.just(dbDataStore.getRecipes());
     }
 
     @Override

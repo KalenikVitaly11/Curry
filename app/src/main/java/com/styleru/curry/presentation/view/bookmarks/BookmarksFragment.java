@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.styleru.curry.CurryApplication;
 import com.styleru.curry.R;
@@ -28,6 +29,9 @@ import javax.inject.Inject;
 
 import androidx.navigation.Navigation;
 
+/**
+ * Фрагмент со списком избранных рецептов пользователя
+ */
 public class BookmarksFragment extends Fragment implements BookmarksView, RecyclerOnClick {
 
     private RecyclerView recyclerView;
@@ -80,6 +84,11 @@ public class BookmarksFragment extends Fragment implements BookmarksView, Recycl
     @Override
     public void showOnEmptyList() {
         noFavorites.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(getContext(), getContext().getString(R.string.error), Toast.LENGTH_LONG).show();
     }
 
     @Override

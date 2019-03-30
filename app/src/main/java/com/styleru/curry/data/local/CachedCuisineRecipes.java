@@ -19,13 +19,18 @@ public class CachedCuisineRecipes {
 
     public void addRecipes(CuisineRecipes cuisineRecipes) {
         if (!ifFull)
-            recipes.add(cuisineRecipes);
+            recipes.add(new CuisineRecipes(cuisineRecipes));
 
         if (recipes.size() >= 3) {
             ifFull = true;
         }
     }
 
+    /**
+     * Возвращаем один объект из списка
+     * @return  Возвращаем один объект из списка
+     *          Если запрашивается элемент списка, которого нет, возвращаем null
+     */
     public CuisineRecipes getRecipes() {
         if (recipes.size() > (currentIndex++) % 3) {
             currentIndex %= 3;

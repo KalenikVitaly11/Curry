@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
+
 public class GetBookmarksInteractorImpl implements GetBookmarksInteractor {
 
     private BookmarksRepository repository;
@@ -17,7 +19,7 @@ public class GetBookmarksInteractorImpl implements GetBookmarksInteractor {
     }
 
     @Override
-    public List<Recipe> getRecipes() {
+    public Single<List<Recipe>> getRecipes() {
         return repository.getRecipes();
     }
 }

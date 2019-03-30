@@ -9,4 +9,6 @@ public interface BookmarksView {
     void setData(List<Recipe> recipeList);
 
     void showOnEmptyList();
+
+    void showError();
 }

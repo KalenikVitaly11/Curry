@@ -4,7 +4,9 @@ import com.styleru.curry.data.models.recipe.Recipe;
 
 import java.util.List;
 
+import io.reactivex.Single;
+
 public interface GetBookmarksInteractor {
 
-    List<Recipe> getRecipes();
+    Single<List<Recipe>> getRecipes();
 }
