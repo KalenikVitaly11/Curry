@@ -4,7 +4,7 @@ import com.styleru.curry.data.models.recipe.RecipeResponse;
 
 public interface SearchView {
 
-    void setData(RecipeResponse recipeResponse);
+    void stopShimmerAnimation();
 
     void showError();
 

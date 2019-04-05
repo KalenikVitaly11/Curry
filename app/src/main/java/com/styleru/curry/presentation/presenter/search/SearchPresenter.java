@@ -1,16 +1,16 @@
 package com.styleru.curry.presentation.presenter.search;
 
+import android.arch.paging.PositionalDataSource;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.styleru.curry.data.models.recipe.RecipeResponse;
+import com.styleru.curry.data.models.recipe.ShortRecipe;
 import com.styleru.curry.domain.search.SearchInteractor;
 import com.styleru.curry.presentation.view.search.SearchView;
 
 import javax.inject.Inject;
 
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SearchPresenter {
@@ -20,6 +20,7 @@ public class SearchPresenter {
 
     private String dietFilter = "";
     private String cuisineFilter = "";
+    private String query = "";
 
     private boolean ifFilterMode = true;
 
@@ -32,30 +33,16 @@ public class SearchPresenter {
         this.view = view;
     }
 
-    public void searchRecipes(String query, String type) {
-        view.searchMode(dietFilter, cuisineFilter);
-        ifFilterMode = false;
-
-        searchInteractor.getRecipesComplex(query, cuisineFilter, dietFilter, type)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        recipeResponse -> {
-                            view.setData(recipeResponse);
-                        },
-                        throwable -> {
-                            view.showError();
-                            Log.d("myLogs", throwable.getMessage());
-                        }
-                );
-    }
-
     public void setDietFilter(String dietFilter) {
         this.dietFilter = dietFilter;
     }
 
     public void setCuisineFilter(String cuisineFilter) {
         this.cuisineFilter = cuisineFilter;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 
     /**
@@ -72,4 +59,44 @@ public class SearchPresenter {
         }
         return false;
     }
+
+    public class SearchDataSource extends PositionalDataSource<ShortRecipe> {
+
+        @Override
+        public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<ShortRecipe> callback) {
+            view.searchMode(dietFilter, cuisineFilter);
+            ifFilterMode = false;
+
+            searchInteractor.getRecipesComplex(query, cuisineFilter, dietFilter, "", params.requestedStartPosition)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            recipeResponse -> {
+                                SearchPresenter.this.query = query;
+                                callback.onResult(recipeResponse.getRecipeList(), params.requestedStartPosition);
+                                view.stopShimmerAnimation();
+                            },
+                            throwable -> {
+                                view.showError();
+                                Log.d("myLogs", throwable.getMessage());
+                            }
+                    );
+        }
+
+        @Override
+        public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<ShortRecipe> callback) {
+            searchInteractor.getRecipesComplex(query, cuisineFilter, dietFilter, "", params.startPosition)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            recipeResponse -> {
+                                callback.onResult(recipeResponse.getRecipeList());
+                            },
+                            throwable -> {
+                                Log.d("myLogs", throwable.getMessage());
+                            }
+                    );
+        }
+    }
+
 }

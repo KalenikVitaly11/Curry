@@ -1,7 +1,9 @@
 package com.styleru.curry.presentation.view.search;
 
+import android.arch.paging.PagedList;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.chip.Chip;
@@ -21,17 +23,24 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.styleru.curry.CurryApplication;
 import com.styleru.curry.R;
 import com.styleru.curry.data.models.recipe.RecipeResponse;
+import com.styleru.curry.data.models.recipe.ShortRecipe;
 import com.styleru.curry.presentation.presenter.search.SearchPresenter;
 import com.styleru.curry.presentation.view.main.FragmentOnBackPressedListener;
 import com.styleru.curry.presentation.view.main.MainActivity;
 import com.styleru.curry.presentation.view.search.adapter.SearchItemDecorator;
 import com.styleru.curry.presentation.view.search.adapter.SearchRecyclerOnClick;
 import com.styleru.curry.presentation.view.search.adapter.SearchRecyclerViewAdapter;
+import com.styleru.curry.presentation.view.search.pagedAdapter.SearchDiffCallback;
+import com.styleru.curry.presentation.view.search.pagedAdapter.SearchPagedAdapter;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
 import androidx.navigation.Navigation;
 
+import static android.os.Looper.getMainLooper;
 import static com.styleru.curry.presentation.view.recipe.RecipeFragment.ID_KEY;
 
 
@@ -45,7 +54,7 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
     private EditText searchEditText;
 
     private RecyclerView recyclerView;
-    private SearchRecyclerViewAdapter adapter;
+    private SearchPagedAdapter adapter;
 
     private Chip dietChip;
     private Chip cuisineChip;
@@ -119,7 +128,8 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
                 cuisineChipGroup.clearCheck();
             }
 
-            presenter.searchRecipes(searchEditText.getText().toString(), "");
+            presenter.setQuery(searchEditText.getText().toString());
+            initRecyclerView();
             searchEditText.clearFocus();
             return false;
         });
@@ -152,21 +162,46 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
     private void init() {
         CurryApplication.addSearchComponent().inject(this);
 
-        initRecycler();
         setSearchFocus();
         presenter.attachView(this);
     }
 
+
     /**
      * Инициализируем ресайклер
      */
-    private void initRecycler() {
+    private void initRecyclerView() {
+
+        // Инициализируем политику доступа к элементам хранилища
+        SearchPresenter.SearchDataSource dataSource = presenter. new SearchDataSource();
+
+        // Подготавливаем параметры списка элементов для отображения
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setPageSize(10) // Количество элементов в загружаемой пачке
+                .setEnablePlaceholders(false) // Не отображать заглушки
+                .setInitialLoadSizeHint(10) // Перованчальная загрузка, количество элементов
+                .setPrefetchDistance(2) // Как далеко от края списка будем инициировать дальнейшую загрузку
+                .build();
+
+        // Собираем сам список
+        PagedList<ShortRecipe> pagedList = new PagedList.Builder<>(dataSource, config)
+                .setFetchExecutor(Executors.newCachedThreadPool()) // Работа в многопоточном режиме
+                .setNotifyExecutor(new MainThreadExecutor()) // Notify бросать в MainLooper
+                .build();
+
+        // Инициализируем "Paged" адаптер
+        adapter = new SearchPagedAdapter(new SearchDiffCallback(), this::recyclerOnClick);
+
+        // Прикручиваем к адаптеру список элементов
+        adapter.submitList(pagedList);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        adapter = new SearchRecyclerViewAdapter(this);
+
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new SearchItemDecorator(2, 20));
         recyclerView.setAdapter(adapter);
     }
+
 
     /**
      * Наводим фокус на поле ввода
@@ -178,8 +213,7 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
     }
 
     @Override
-    public void setData(RecipeResponse recipeResponse) {
-        adapter.updateData(recipeResponse.getRecipeList());
+    public void stopShimmerAnimation() {
         shimmerFrameLayout.setVisibility(View.GONE);
         shimmerFrameLayout.stopShimmerAnimation();
     }
@@ -238,5 +272,18 @@ public class SearchFragment extends Fragment implements SearchView, SearchRecycl
     @Override
     public boolean onBackPressed() {
         return presenter.onBackPressed();
+    }
+
+    private class MainThreadExecutor implements Executor {
+        private Handler mHandler;
+
+        public MainThreadExecutor() {
+            mHandler = new Handler(getMainLooper());
+        }
+
+        @Override
+        public void execute(Runnable command) {
+            mHandler.post(command);
+        }
     }
 }

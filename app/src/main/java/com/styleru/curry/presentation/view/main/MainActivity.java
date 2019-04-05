@@ -40,9 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        // Получаем текущий фрагмент
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)
                 .getChildFragmentManager().getFragments().get(0);
 
+        // Если фрагмент не имплементирует интерфейс FragmentOnBackPressedListener или метод вернул false, то вызываем дефолтный onBackPressed
         if(!(fragment instanceof FragmentOnBackPressedListener) || !((FragmentOnBackPressedListener) fragment).onBackPressed() ){
             super.onBackPressed();
         }

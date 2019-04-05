@@ -16,7 +16,7 @@ public class SearchInteractorImpl implements SearchInteractor {
     }
 
     @Override
-    public Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type) {
-        return searchRepository.getRecipesComplex(query, cuisine, diet, type);
+    public Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type, int offset) {
+        return searchRepository.getRecipesComplex(query, cuisine, diet, type, offset);
     }
 }

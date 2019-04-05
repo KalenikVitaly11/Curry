@@ -14,5 +14,5 @@ public interface SearchRepository {
      * @param type Тип блюда (main course, side dish, dessert, appetizer, salad, bread, breakfast, soup, beverage, sauce, or drink)
      * @return Ответ сервера
      */
-    Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type);
+    Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type, int offset);
 }

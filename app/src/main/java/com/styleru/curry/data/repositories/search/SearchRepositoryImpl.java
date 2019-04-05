@@ -18,7 +18,7 @@ public class SearchRepositoryImpl implements SearchRepository {
     }
 
     @Override
-    public Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type) {
-        return webDataStore.getRecipesComplex(query, cuisine, diet, type);
+    public Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type, int offset) {
+        return webDataStore.getRecipesComplex(query, cuisine, diet, type, offset);
     }
 }

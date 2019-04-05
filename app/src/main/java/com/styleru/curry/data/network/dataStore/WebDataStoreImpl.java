@@ -53,9 +53,9 @@ public class WebDataStoreImpl implements WebDataStore {
      * @return Ответ сервера
      */
     @Override
-    public Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type) {
+    public Single<RecipeResponse> getRecipesComplex(String query, String cuisine, String diet, String type, int offset) {
         return curryWebHelper
                 .getApi()
-                .getRecipesComplex(CurryWebHelper.API_KEY, query, cuisine, diet, type);
+                .getRecipesComplex(CurryWebHelper.API_KEY, query, cuisine, diet, type, offset);
     }
 }

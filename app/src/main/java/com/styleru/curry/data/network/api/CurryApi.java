@@ -41,5 +41,5 @@ public interface CurryApi {
      */
     @GET("/recipes/search")
     Single<RecipeResponse> getRecipesComplex(@Header("X-RapidAPI-Key") String key, @Query("query") String query,
-                               @Query("cuisine") String cuisine, @Query("diet") String diet, @Query("type") String type);
+                               @Query("cuisine") String cuisine, @Query("diet") String diet, @Query("type") String type, @Query("offset") int offset);
 }
